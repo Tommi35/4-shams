@@ -3,7 +3,7 @@
 > Single source of truth. Read this first at the start of every session. If anything here contradicts the files on disk, STOP and reconcile before changing code.
 
 ## Current phase / task
-**Blocks 2–5 complete and verified in a real (headless) Chrome.** Awaiting 2 user decisions before deployment (password gate, deploy host). Rough completion: ~80%.
+**Deployed and LIVE** at https://tommi35.github.io/4-shams/ (HTTP 200 verified; index, app.js, audio all served). Remaining: the real-phone Shams-test (Phase 9). Rough completion: ~90%.
 
 ## What's done (VERIFIED by me this session)
 - Project folder `C:\Users\xale\Desktop\4 Shams` — self-contained.
@@ -21,13 +21,12 @@
   `C:\Users\xale\AppData\Local\Temp\opencode\shot-mobile-{off,open,ready,playing}.png`, `shot-desktop-ready.png`
 
 ## What is NOT yet verified — needs the USER
-- Aesthetics / real-phone feel (the human check).
-- Real audio playback on a phone browser + mobile data streaming.
-- Anything touching deploy accounts.
+- Aesthetics / real-phone feel + real audio playback on a phone browser & mobile data (the Shams-test).
 
 ## Known bugs / limitations
 - Audio errors show a hint and return to ready (last-resort; not provoked in tests).
-- Netlify Drop 100 MB limit: folder ≈ 98 MB → borderline. GitHub Pages has no such limit. Alternative if needed: re-encode to 128 kbps (~78 MB) in one step (ffmpeg available here).
+- Netlify Drop 100 MB limit: irrelevant now — GitHub Pages in use (no such limit).
+- GitHub web-UI upload refused a ~49 MB audio batch with "file too large" (no single file >25 MB); solved by `git clone` + `git push` from this machine instead.
 - Single shared <audio> element: no crossfade (by design, keeps it simple).
 
 ## Decisions made
@@ -51,11 +50,9 @@
 
 ## Preview / deploy
 - Preview: double-click `index.html` in the folder (verified working over `file://`). For best fidelity serve it: `python -m http.server` inside the folder, open `http://127.0.0.1:8000/`.
-- Deploy to GitHub Pages WITHOUT git (web UI only, 3 steps when user is ready):
-  1. Create a free account / repo at github.com
-  2. In the repo: "Add file → Upload files" → drag the CONTENTS of the `4 Shams` folder (≤100 files, each <25 MB — ok)
-  3. Settings → Pages → Source: Deploy from branch `main` → Save → wait ~1 min → open the published URL
-- Deployment requires the user creating a free account — hand that off.
+- **LIVE: https://tommi35.github.io/4-shams/** — GitHub Pages, unlisted (robots.txt + noindex), open to anyone with the link.
+- How it got there (for reference): user created GitHub account (Tommi35); web-UI upload failed on audio batch → used git already installed on this machine: `git clone` repo in Temp, copied files, `git add -A && git commit && git push` (one-time browser sign-in), then Settings → Pages → Deploy from branch `main` / root.
+- Future updates: same temp clone at `C:\Users\xale\AppData\Local\Temp\opencode\deploy-4shams` (copy new files → commit → push), or simply re-do via GitHub web UI for small changes.
 
 ## Progress log
 - 2026-09-14 — Read prompt; asked section-3 questions; got names/lang/order; found track-order conflict; user confirmed typed order.
@@ -63,3 +60,4 @@
 - 2026-09-14 — Block 1 (structure/CSS) built; served locally OK.
 - 2026-09-14 — Block 2/3/4/5 built (JS audio engine, spin, opening sequence, marquee); 23-check headless-Chrome suite PASS; marquee/progress verified; layout audit clean; robots.txt added.
 - 2026-09-14 — `file://` (double-click) verified. Decisions: unlisted + GitHub Pages. Ready for user hand-off.
+- 2026-09-14 — DEPLOYED: user created account (Tommi35) + repo `4-shams`; web upload failed on audio ("file too large", irrelevant to real sizes) → pushed via git; Pages enabled on `main`; live at https://tommi35.github.io/4-shams/, HTTP 200, app.js + audio verified. Next: real-phone Shams-test.

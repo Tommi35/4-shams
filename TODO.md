@@ -48,11 +48,11 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done · `[!]` blocked ·
 
 ## Phase 8 — Deployment prep
 - [x] Local preview double-check (double-click index.html verified via file://)
-- [x] Deployment target decided: GitHub Pages (no git needed — browser upload)
-- [ ] User creates GitHub account (first step of deployment) — when ready
-- [ ] Upload folder via GitHub web UI (drag & drop)
-- [ ] Enable Pages (branch main) in repo settings
-- [ ] Open the live link on a real phone (Shams-test)
+- [x] Deployment target decided: GitHub Pages (no git needed — browser upload)  →  *NOTE: web-UI upload failed on audio ("file too large"); deployed via local git push instead*
+- [x] User creates GitHub account (username: Tommi35) and repo `4-shams`
+- [x] Upload all files (git clone + push from this machine, one-time browser sign-in)
+- [x] Enable Pages (branch main) in repo settings → LIVE at https://tommi35.github.io/4-shams/
+- [x] Open the live link and verify (HTTP 200; index/app.js/audio all fetched OK — done headless, not yet on a phone)
 
 ## Phase 9 — Shams-test
-- [ ] User opens on a real phone and reports what works/feels wrong
+- [ ] User opens https://tommi35.github.io/4-shams/ on a real phone (Wi-Fi + mobile data) and reports what works/feels wrong
