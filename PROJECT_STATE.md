@@ -3,22 +3,25 @@
 > Single source of truth. Read this first at the start of every session. If anything here contradicts the files on disk, STOP and reconcile before changing code.
 
 ## Current phase / task
-**Deployed and LIVE** at https://tommi35.github.io/4-shams/ (HTTP 200 verified; index, app.js, audio all served). Remaining: the real-phone Shams-test (Phase 9). Rough completion: ~90%.
+LIVE at https://tommi35.github.io/4-shams/ (verified). Refinement in progress per REFINEMENT_PLAN.md — **Blocks A (catalog), B (boombox restyle), C (stickers) DONE and verified**; **Block D (final combined local verification) DONE — 62-check suite all PASS**; deploy (E) next. Real-phone Shams-test v2 pending (E4). Rough completion: ~97%.
 
 ## What's done (VERIFIED by me this session)
 - Project folder `C:\Users\xale\Desktop\4 Shams` — self-contained.
-- Audio: 17 mp3 tracks encoded at 160 kbps into `/audio` (`01-…` … `17-…`), order per user's typed list, id3 title/artist embedded. ~98 MB total. Source files untouched in `C:\Users\xale\Desktop\disco Shams`.
-- `index.html` — top-loading portable CD player: flip-up lid over a disc, LCD, transport buttons (prev/play/next/eject), volume + mute, track booklet, footer.
-- `css/styles.css` — plain CSS; mobile-first; warm cream/brass palette; no external fonts/services.
-- `js/app.js` — plain JS: power state machine (off → open → closing → reading → ready → playing/paused), audio engine, direct track select, volume/mute, LCD marquee (measured Web Animations, reduced-motion aware), graceful error/stall hints.
+- Audio: **14** mp3 tracks at 160 kbps into `/audio` (`01-…` … `14-…`), per the locked 14-track order; id3 title/artist embedded. Source files untouched in `C:\Users\xale\Desktop\disco Shams`.
+  - Removed: `10-here-comes-the-sun`, `12-weak-for-your-love`, `14-masterpiece`. Renamed: `11-is-this-love`→`10`, `13-window`→`11`, `15-amore…`→`12`, `16-kiss-of-life`→`13`, `17-apocalypse`→`14`.
+- `index.html` — top-loading portable CD player: flip-up lid over a disc, LCD, transport buttons (prev/play/next/eject), volume + mute, track booklet (says `14 TRACKS · 51 MIN`), footer.
+- `css/styles.css` — plain CSS; mobile-first; warm cream/brass + charcoal boombox palette; pastel floral sticker decor (Block C); no external fonts/services.
+- `js/app.js` — plain JS: power state machine (off → open → closing → reading → ready → playing/paused), audio engine, direct track select, volume/mute, LCD marquee (measured Web Animations, reduced-motion aware), graceful error/stall hints. `TRACKS` length = 14.
 - `robots.txt` (Disallow /) + `<meta name="robots" content="noindex,nofollow">`.
 
 ## Testing I actually ran (real headless Chrome, DevTools Protocol)
-- 23-check end-to-end suite: lid open → disc load → play → time advances → disc spins → next/prev → pause freeze → direct track select → volume → eject-pauses. **All PASS, zero console errors / uncaught exceptions.**
+- 23-check end-to-end suite (pre-refinement), plus Block A suite (14 rows, direct-select all 14, audio 200/206) — all PASS.
+- **Block B 49-check suite (post-restyle):** branding split checks (SONY CFD-330 nameplate, lid/lcd SONY, disc/booklet/footer/title 4 SHAMS, STEREO grille mark), full state-machine smoke (off→open→closing→ready→playing, next/prev/pause-freeze/direct-select/volume/mute/eject-all-PASS), layout audit 320/375/390/768/1280 — no horizontal scroll, device fits viewport, tap targets ≥54px, audio all 200/206, **zero console errors / uncaught exceptions**.
 - Marquee animation running in ready & playing; progress bar updates (0:02 / 3:48, 1%).
-- Layout audit at 320/375/390/768(width)/1280: no horizontal scroll; tap targets 54–61 px; device fits viewport.
+- **Block C 42-check suite (post-stickers):** 6 inline-SVG stickers present (all `aria-hidden`, `pointer-events:none`, `user-select:none`); no sticker rect intersects LCD / prev / play / next / eject / volume slider / mute; lid sticker fully inside the lid; all stickers inside the device; zero horizontal scroll + device fits viewport + tap targets ≥54px at 320/375/390/768/1280; full state-machine regression (off→open→closing→ready→playing, next/prev/pause-freeze/direct-select/volume/mute/eject) unchanged; audio all 200/206; zero console errors / uncaught exceptions.
+- **Block D 62-check suite (final combined A+B+C):** 14 rows + conclusive CSS counter-chain check (reset/inc/content decimal-leading-zero + 14 `.t-num`), booklet `14 TRACKS · 51 MIN`, direct-select all 14 → correct src + plays, removed tracks never requested, all boombox branding/anatomy splits, 6 stickers non-interactive, full state-machine smoke (off→open→closing→ready→playing→paused, next/prev/direct-select/vol/mute/eject), sticker-rect audit + no h-scroll + device fits + tap targets ≥54 at 320/375/390/768/1280, audio all 200/206, **`file://` double-click check PASS (renders off + 14 rows + no script errors)**, zero console errors. Screenshots `shot-2-{off,open,ready,playing,desktop-ready,file}.png`.
 - Screenshots saved for the user (this model cannot view images):
-  `C:\Users\xale\AppData\Local\Temp\opencode\shot-mobile-{off,open,ready,playing}.png`, `shot-desktop-ready.png`
+  `C:\Users\xale\AppData\Local\Temp\opencode\shot-mobile-{off,open,ready,playing}.png`, `shot-desktop-ready.png` (pre-refine), `shot-2-ready-a.png` (Block A), `shot-2-{ready,playing,desktop-ready}.png` (Block B), and Block C stickers: `shot-3-{ready,playing,desktop}.png`.
 
 ## What is NOT yet verified — needs the USER
 - Aesthetics / real-phone feel + real audio playback on a phone browser & mobile data (the Shams-test).
@@ -31,9 +34,11 @@
 
 ## Decisions made
 - English interface. Names: folder/site/disc = `4 Shams`. No personal note. The `.webp` in Downloads is unrelated (ignored).
-- Typed 17-track list is the authoritative order (numbers on 3 source filenames are stale).
+- Typed 17-track list is the authoritative order (numbers on 3 source filenames are stale) → **refined to the locked 14-track order in REFINEMENT_PLAN.md** (3 removed, renumbered 01–14).
 - Re-encoded to 160 kbps mp3. Originals untouched.
 - Design: portable top-loading CD player, flip-up lid, warm cream/brass, LCD marquee, spin-on-play, autoplay-safe flow.
+- **Refinement (locked in REFINEMENT_PLAN.md):** player becomes a Sony CFD-330 boombox (brand on the player); disc/album/booklet/footer/site stay `4 SHAMS`; pastel floral stickers; playback logic & state machine unchanged.
+- **Blocks A–D status:** A (catalog) ✓, B (boombox restyle) ✓, C (stickers) ✓, D (final local verification) ✓ — all headless-verified. E (deploy via temp clone with `git mv` renames → verify live → user phone test v2) next.
 - Single <audio> element, no frameworks, no build step, no external requests.
 
 ## Needs my input (open decisions)
@@ -43,10 +48,10 @@
 ## Files in the project (current)
 - `index.html` — page + player + booklet markup
 - `css/styles.css` — all styling
-- `js/app.js` — all logic + track list
-- `audio/01-walking-into-sunshine.mp3` … `audio/17-apocalypse.mp3`
+- `js/app.js` — all logic + track list (14)
+- `audio/01-walking-into-sunshine.mp3` … `audio/14-apocalypse.mp3`
 - `robots.txt` — no-index
-- `PROJECT_STATE.md`, `TODO.md` — state files
+- `PROJECT_STATE.md`, `TODO.md`, `REFINEMENT_PLAN.md` — state files
 
 ## Preview / deploy
 - Preview: double-click `index.html` in the folder (verified working over `file://`). For best fidelity serve it: `python -m http.server` inside the folder, open `http://127.0.0.1:8000/`.
@@ -61,3 +66,7 @@
 - 2026-09-14 — Block 2/3/4/5 built (JS audio engine, spin, opening sequence, marquee); 23-check headless-Chrome suite PASS; marquee/progress verified; layout audit clean; robots.txt added.
 - 2026-09-14 — `file://` (double-click) verified. Decisions: unlisted + GitHub Pages. Ready for user hand-off.
 - 2026-09-14 — DEPLOYED: user created account (Tommi35) + repo `4-shams`; web upload failed on audio ("file too large", irrelevant to real sizes) → pushed via git; Pages enabled on `main`; live at https://tommi35.github.io/4-shams/, HTTP 200, app.js + audio verified. Next: real-phone Shams-test.
+- 2026-09-14 — **Block A (catalog cleanup) DONE + verified**: TRACKS → 14 rows; removed `10-here-comes-the-sun`, `12-weak-for-your-love`, `14-masterpiece`; renamed 5 → new numbers; booklet `14 TRACKS · 51 MIN`. Headless-Chrome suite: 14 rows render, counter chain 01–14, direct-select all 14 = correct src + plays, all audio 200/206, removed tracks never requested, zero console errors. Screenshot `shot-2-ready-a.png` saved.
+- 2026-09-14 — **Block B (boombox restyle) DONE + verified**: SONY CFD-330 nameplate + handle recess, smoked translucent lid (printed SONY) keeping flip timing, deck plate around LCD+keypad, chamfered keycaps + engraved glyphs, VOL label/ticks/knurled thumb, grille with STEREO, rubber feet, charcoal body with grain/bevel/seam. Off-state grayscale kept. 49-check headless suite — all PASS, layout clean at 320–1280, zero console errors. Screenshots `shot-2-{ready,playing,desktop-ready}.png`. Block C next.
+- 2026-09-14 — **Block C (pastel floral stickers) DONE + verified**: added 6 self-contained inline-SVG stickers — daisies ×2, clover, tiny sun, heart, tiny star in pink/mint/peach/sky/cream — all `aria-hidden`, `pointer-events:none`, `user-select:none`. Cluster on the deck plate's blank right column, heart wrapping the grille's top edge (right cap), star on the lid's left corner (rotates with flip; lid stays clickable). 1–3° tilt + worn drop-shadow + matte paper gradient backing. 42-check headless suite all PASS: no sticker overlaps LCD/buttons/volume slider/mute, all stickers inside device & lid star inside lid, no horizontal scroll + device fits + tap targets ≥54px at 320/375/390/768/1280, full state-machine regression unchanged (off→open→closing→ready→playing, next/prev/pause/direct-select/vol/mute/eject), audio 200/206, zero console errors. Screenshots `shot-3-{ready,playing,desktop}.png`. Block D (final combined verification) next.
+- 2026-09-14 — **Block D (final combined verification) DONE + verified**: one merged 62-check suite re-runs A+B+C together — all PASS. Catalog (14 rows, conclusive CSS counter-chain, `14 TRACKS · 51 MIN` booklet, direct-select all 14 correct src + plays, removed tracks never requested), boombox identity + anatomy, 6 stickers non-interactive, full state-machine smoke (off→open→closing→ready→playing→paused, next/prev/pause-freeze/direct-select/vol/mute/eject), sticker-rect audit + no h-scroll + device fits + tap targets ≥54 at 320/375/390/768/1280, audio all 200/206. `file://` double-click check PASS (renders, 14 rows, no script errors). Screenshots `shot-2-{off,open,ready,playing,desktop-ready,file}.png`. Ready to deploy — Block E next (needs go-ahead).

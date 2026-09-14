@@ -18,14 +18,11 @@ const TRACKS = [
   { title: 'See You Again', artist: 'Tyler, The Creator', file: '07-see-you-again' },
   { title: 'Butterflies', artist: 'Brent Faiyaz', file: '08-butterflies' },
   { title: 'Sfiorivano le viole', artist: 'Rino Gaetano', file: '09-sfiorivano-le-viole' },
-  { title: 'Here Comes The Sun', artist: 'The Beatles', file: '10-here-comes-the-sun' },
-  { title: 'Is This Love', artist: 'Bob Marley & The Wailers', file: '11-is-this-love' },
-  { title: 'Weak for Your Love', artist: 'Thee Sacred Souls', file: '12-weak-for-your-love' },
-  { title: 'Window', artist: 'Still Woozy', file: '13-window' },
-  { title: 'Masterpiece', artist: 'Sault', file: '14-masterpiece' },
-  { title: 'Amore che vieni, amore che vai', artist: 'Fabrizio De André', file: '15-amore-che-vieni-amore-che-vai' },
-  { title: 'Kiss of Life', artist: 'Sade', file: '16-kiss-of-life' },
-  { title: 'Apocalypse', artist: 'Cigarettes After Sex', file: '17-apocalypse' }
+  { title: 'Is This Love', artist: 'Bob Marley & The Wailers', file: '10-is-this-love' },
+  { title: 'Window', artist: 'Still Woozy', file: '11-window' },
+  { title: 'Amore che vieni, amore che vai', artist: 'Fabrizio De André', file: '12-amore-che-vieni-amore-che-vai' },
+  { title: 'Kiss of Life', artist: 'Sade', file: '13-kiss-of-life' },
+  { title: 'Apocalypse', artist: 'Cigarettes After Sex', file: '14-apocalypse' }
 ];
 
 const AUDIO_BASE = 'audio/';
@@ -66,7 +63,7 @@ const STATE = {
 };
 
 const HINTS = {
-  off:      'Press OPEN to open the CD door',
+  off:      'Press OPEN to lift the lid',
   open:     'Tap the disc to load it',
   closing:  'Loading\u2026',
   reading:  'Reading disc\u2026',

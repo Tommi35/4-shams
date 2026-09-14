@@ -10,82 +10,230 @@
 <body>
   <main class="stage">
 
-    <!-- ============ THE PLAYER ============ -->
-    <article class="device" id="device" data-state="off" data-playing="false" aria-label="4 Shams CD player">
+    <!-- ============ THE PLAYER (Sony CFD-330 boombox) ============ -->
+    <article class="device" id="device" data-state="off" data-playing="false" aria-label="4 Shams CD boombox">
 
-      <!-- CD tray (top-loading) -->
+      <!-- carry-handle recess (decorative) -->
+      <div class="handle-recess" aria-hidden="true">
+        <span class="handle-bar"></span>
+      </div>
+
+      <!-- body nameplate -->
+      <div class="nameplate" aria-hidden="true">
+        <span class="np-brand">SONY</span>
+        <span class="np-model">CFD-330</span>
+      </div>
+
+      <!-- CD tray (top-loading) with flip-up lid -->
       <div class="tray" id="tray">
         <div class="tray-recess">
-          <div class="disc" id="disc" role="button" tabindex="0" aria-label="Insert the compact disc" title="Insert the disc">
+          <div class="disc" id="disc" role="button" tabindex="0" aria-label="Tap the disc to load it" title="Insert the disc">
             <span class="disc-label">4&nbsp;SHAMS</span>
           </div>
         </div>
-        <button class="lid" id="lid" type="button" aria-label="Open or close the CD door">
-          <span class="lid-mark">4 SHAMS</span>
+        <button class="lid" id="lid" type="button" aria-label="Lift or close the disc lid">
+          <span class="lid-mark">SONY</span>
+          <span class="sticker sticker-lid s6-star" aria-hidden="true" style="--tilt:-1.5deg">
+            <svg viewBox="0 0 22 22" focusable="false" aria-hidden="true">
+              <defs>
+                <linearGradient id="s6paper" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#e6f1ff"/><stop offset="1" stop-color="#c0dcf5"/>
+                </linearGradient>
+              </defs>
+              <rect x="1.2" y="1.2" width="19.6" height="19.6" rx="6" fill="url(#s6paper)"/>
+              <rect x="1.9" y="1.9" width="18.2" height="18.2" rx="5.4" fill="none" stroke="rgba(100,140,200,0.32)" stroke-width="1"/>
+              <path d="M11 2.6l2 5 5.5.4-4.3 3.6 1.4 5.4-4.6-2.9-4.6 2.9 1.4-5.4-4.3-3.6 5.5-.4z" fill="#cfe5ff" stroke="#98b6e6" stroke-width="0.9" stroke-linejoin="round"/>
+              <circle cx="16.5" cy="5.8" r="1" fill="#fff" opacity=".7"/>
+            </svg>
+          </span>
         </button>
       </div>
 
-      <!-- LCD display -->
-      <div class="lcd" id="lcd">
-        <div class="lcd-top">
-          <span id="lcdName">4 SHAMS</span>
-          <span class="lcd-icon-play" id="lcdIconPlay">&#9654;</span>
-        </div>
-        <div class="lcd-scroll">
-          <span class="lcd-marquee" id="lcdTitle">&nbsp;</span>
-        </div>
-        <div class="lcd-bottom">
-          <span class="lcd-track" id="lcdTrackNum">--</span>
-          <span class="lcd-progress-track" aria-hidden="true"><span class="lcd-progress-fill" id="lcdProgressFill"></span></span>
-          <span class="lcd-time" id="lcdTimeNow">0:00</span>
-          <span class="lcd-sep">/</span>
-          <span class="lcd-time" id="lcdTimeTotal">0:00</span>
-        </div>
-      </div>
+      <!-- deck plate: LCD + transport keys -->
+      <div class="deck">
 
-      <!-- Controls -->
-      <div class="controls">
-        <div class="ctrl">
-          <button class="ctrl-btn" id="btnPrev" type="button" aria-label="Previous track" disabled>
-            <svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5v14l-9-7z"/></svg>
-          </button>
+        <!-- LCD display -->
+        <div class="lcd" id="lcd">
+          <div class="lcd-top">
+            <span id="lcdName">SONY</span>
+            <span class="lcd-icon-play" id="lcdIconPlay">&#9654;</span>
+          </div>
+          <div class="lcd-scroll">
+            <span class="lcd-marquee" id="lcdTitle">&nbsp;</span>
+          </div>
+          <div class="lcd-bottom">
+            <span class="lcd-track" id="lcdTrackNum">--</span>
+            <span class="lcd-progress-track" aria-hidden="true"><span class="lcd-progress-fill" id="lcdProgressFill"></span></span>
+            <span class="lcd-time" id="lcdTimeNow">0:00</span>
+            <span class="lcd-sep">/</span>
+            <span class="lcd-time" id="lcdTimeTotal">0:00</span>
+          </div>
         </div>
-        <div class="ctrl ctrl-main">
-          <button class="ctrl-btn ctrl-play" id="btnPlay" type="button" aria-label="Play" disabled>
-            <svg class="ico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <svg class="ico-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
-          </button>
-        </div>
-        <div class="ctrl">
-          <button class="ctrl-btn" id="btnNext" type="button" aria-label="Next track" disabled>
-            <svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5v14l9-7z"/></svg>
-          </button>
-        </div>
-        <div class="ctrl">
-          <button class="ctrl-btn ctrl-eject" id="btnEject" type="button" aria-label="Open or close the CD tray">
-            <svg viewBox="0 0 24 24"><path d="M12 5l7 8h-5v5h-4v-5H5z"/><path d="M5 20h14v-2H5z"/></svg>
-          </button>
+
+        <!-- Controls (keypad well) -->
+        <div class="controls">
+          <div class="ctrl">
+            <button class="ctrl-btn" id="btnPrev" type="button" aria-label="Previous track" disabled>
+              <svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5v14l-9-7z"/></svg>
+            </button>
+            <span class="ctrl-engrave" aria-hidden="true">&#9664;&#9664;</span>
+          </div>
+          <div class="ctrl ctrl-main">
+            <button class="ctrl-btn ctrl-play" id="btnPlay" type="button" aria-label="Play" disabled>
+              <svg class="ico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="ico-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+            </button>
+            <span class="ctrl-engrave" aria-hidden="true">&#9654;</span>
+          </div>
+          <div class="ctrl">
+            <button class="ctrl-btn" id="btnNext" type="button" aria-label="Next track" disabled>
+              <svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5v14l9-7z"/></svg>
+            </button>
+            <span class="ctrl-engrave" aria-hidden="true">&#9654;&#9654;</span>
+          </div>
+          <div class="ctrl">
+            <button class="ctrl-btn ctrl-eject" id="btnEject" type="button" aria-label="Open or close the disc lid">
+              <svg viewBox="0 0 24 24"><path d="M12 5l7 8h-5v5h-4v-5H5z"/><path d="M5 20h14v-2H5z"/></svg>
+            </button>
+            <span class="ctrl-engrave" aria-hidden="true">&#9650;</span>
+          </div>
         </div>
       </div>
 
       <!-- Volume -->
       <div class="vol" id="vol">
-        <button class="vol-btn" id="btnMute" type="button" aria-label="Mute" disabled>
-          <svg class="ico-sound" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8c1.5 1.3 2.5 3.1 2.5 4s-1 2.7-2.5 4"/></svg>
-          <svg class="ico-muted" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9l6 6M22 9l-6 6"/></svg>
-        </button>
-        <input id="volRange" class="vol-range" type="range" min="0" max="100" value="70" aria-label="Volume" disabled>
+        <span class="vol-label" aria-hidden="true">VOL</span>
+        <div class="vol-track">
+          <span class="vol-ticks" aria-hidden="true"></span>
+          <div class="vol-row">
+            <button class="vol-btn" id="btnMute" type="button" aria-label="Mute" disabled>
+              <svg class="ico-sound" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8c1.5 1.3 2.5 3.1 2.5 4s-1 2.7-2.5 4"/></svg>
+              <svg class="ico-muted" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9l6 6M22 9l-6 6"/></svg>
+            </button>
+            <input id="volRange" class="vol-range" type="range" min="0" max="100" value="70" aria-label="Volume" disabled>
+          </div>
+        </div>
+      </div>
+
+      <!-- Front speaker grille -->
+      <div class="grille">
+        <span class="grille-cap" aria-hidden="true"></span>
+        <div class="grille-main" aria-hidden="true"></div>
+        <div class="grille-main" aria-hidden="true"></div>
+        <span class="grille-cap" aria-hidden="true"></span>
+        <span class="grille-mark">STEREO</span>
+      </div>
+
+      <!-- pastel floral stickers (decorative, pointer-events: none) -->
+      <div class="stickers-front" aria-hidden="true">
+        <span class="sticker s1-daisy" aria-hidden="true" style="--tilt:-2deg">
+          <svg viewBox="0 0 34 34" focusable="false" aria-hidden="true">
+            <defs>
+              <linearGradient id="s1paper" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#fdf5e1"/><stop offset="1" stop-color="#f1e1bf"/>
+              </linearGradient>
+              <g id="s1petal"><ellipse cx="17" cy="9.2" rx="3.5" ry="6.4" fill="#fffdf5" stroke="#ebd9b3" stroke-width=".7"/></g>
+            </defs>
+            <rect x="1.5" y="1.5" width="31" height="31" rx="8" fill="url(#s1paper)"/>
+            <rect x="2.3" y="2.3" width="29.4" height="29.4" rx="7" fill="none" stroke="rgba(146,110,66,0.30)" stroke-width="1"/>
+            <use href="#s1petal" transform="rotate(0 17 18)"/><use href="#s1petal" transform="rotate(45 17 18)"/>
+            <use href="#s1petal" transform="rotate(90 17 18)"/><use href="#s1petal" transform="rotate(135 17 18)"/>
+            <use href="#s1petal" transform="rotate(180 17 18)"/><use href="#s1petal" transform="rotate(225 17 18)"/>
+            <use href="#s1petal" transform="rotate(270 17 18)"/><use href="#s1petal" transform="rotate(315 17 18)"/>
+            <circle cx="17" cy="18" r="5" fill="#ffd9a5" stroke="#efaf76" stroke-width=".8"/>
+            <circle cx="9.5" cy="25" rx="3.2" ry="1.9" transform="rotate(-32 9.5 25)" fill="#b9e4bf"/>
+            <circle cx="13" cy="27.6" rx="3" ry="1.8" transform="rotate(-58 13 27.6)" fill="#cdead2"/>
+            <circle cx="5.6" cy="7" r="1.1" fill="#fff" opacity=".55"/>
+            <circle cx="28" cy="27" r="1.3" fill="#8a6b3e" opacity=".18"/>
+          </svg>
+        </span>
+        <span class="sticker s3-clover" aria-hidden="true" style="--tilt:1.5deg">
+          <svg viewBox="0 0 26 26" focusable="false" aria-hidden="true">
+            <defs>
+              <linearGradient id="s3paper" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#e4f7e9"/><stop offset="1" stop-color="#cbeadd"/>
+              </linearGradient>
+              <g id="s3leaf"><ellipse cx="13" cy="6.4" rx="4.6" ry="3" fill="#cdeed8" stroke="#a2d2b4" stroke-width=".7"/></g>
+            </defs>
+            <rect x="1.2" y="1.2" width="23.6" height="23.6" rx="6.5" fill="url(#s3paper)"/>
+            <rect x="1.9" y="1.9" width="22.2" height="22.2" rx="5.9" fill="none" stroke="rgba(90,150,115,0.30)" stroke-width="1"/>
+            <use href="#s3leaf" transform="rotate(0 13 14.4)"/><use href="#s3leaf" transform="rotate(90 13 14.4)"/>
+            <use href="#s3leaf" transform="rotate(180 13 14.4)"/><use href="#s3leaf" transform="rotate(270 13 14.4)"/>
+            <path d="M13 14.4v5.2" stroke="#8ec9a8" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <circle cx="13" cy="14.4" r="1.5" fill="#fff" opacity=".4"/>
+            <circle cx="6" cy="7" r="1" fill="#fff" opacity=".5"/>
+          </svg>
+        </span>
+        <span class="sticker s2-daisy-mini" aria-hidden="true" style="--tilt:2deg">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <defs>
+              <linearGradient id="s2paper" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffe4eb"/><stop offset="1" stop-color="#ffccd9"/>
+              </linearGradient>
+              <g id="s2petal"><ellipse cx="12" cy="6.6" rx="2.4" ry="4.4" fill="#fff6f9" stroke="#f2c3ce" stroke-width=".6"/></g>
+            </defs>
+            <rect x="1.2" y="1.2" width="21.6" height="21.6" rx="6" fill="url(#s2paper)"/>
+            <rect x="1.9" y="1.9" width="20.2" height="20.2" rx="5.4" fill="none" stroke="rgba(180,90,110,0.28)" stroke-width="1"/>
+            <use href="#s2petal" transform="rotate(0 12 12.5)"/><use href="#s2petal" transform="rotate(60 12 12.5)"/>
+            <use href="#s2petal" transform="rotate(120 12 12.5)"/><use href="#s2petal" transform="rotate(180 12 12.5)"/>
+            <use href="#s2petal" transform="rotate(240 12 12.5)"/><use href="#s2petal" transform="rotate(300 12 12.5)"/>
+            <circle cx="12" cy="12.5" r="3.4" fill="#ffb9c5" stroke="#f28a9e" stroke-width=".7"/>
+            <circle cx="4.5" cy="5.5" r="1" fill="#fff" opacity=".5"/>
+            <circle cx="19.5" cy="19" r="1.1" fill="#f08aa0" opacity=".22"/>
+          </svg>
+        </span>
+        <span class="sticker s4-sun" aria-hidden="true" style="--tilt:-1.2deg">
+          <svg viewBox="0 0 28 28" focusable="false" aria-hidden="true">
+            <defs>
+              <linearGradient id="s4paper" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffe9d4"/><stop offset="1" stop-color="#ffd6b8"/>
+              </linearGradient>
+            </defs>
+            <rect x="1.2" y="1.2" width="25.6" height="25.6" rx="7" fill="url(#s4paper)"/>
+            <rect x="1.9" y="1.9" width="24.2" height="24.2" rx="6.4" fill="none" stroke="rgba(200,130,70,0.30)" stroke-width="1"/>
+            <g stroke="#ffca96" stroke-width="2.2" stroke-linecap="round">
+              <path d="M14 4.5V2.6"/><path d="M14 23.5v1.9"/><path d="M4.5 14H2.6"/><path d="M23.5 14h1.9"/>
+              <path d="M7.8 7.8l-1.4-1.4"/><path d="M20.2 20.2l1.4 1.4"/><path d="M20.2 7.8l1.4-1.4"/><path d="M7.8 20.2l-1.4 1.4"/>
+            </g>
+            <circle cx="14" cy="14" r="6" fill="#ffd9a8" stroke="#f2b37a" stroke-width="1"/>
+            <circle cx="11.8" cy="13" r=".9" fill="#e09a5e"/>
+            <circle cx="16.2" cy="13" r=".9" fill="#e09a5e"/>
+            <path d="M11.8 16.2q2.2 1.7 4.4 0" fill="none" stroke="#e09a5e" stroke-width="1" stroke-linecap="round"/>
+            <circle cx="23" cy="5.5" r="1.1" fill="#bcd6f3" opacity=".7"/>
+            <circle cx="5" cy="23" r="1" fill="#ffd9a8" opacity=".6"/>
+          </svg>
+        </span>
+        <span class="sticker s5-heart" aria-hidden="true" style="--tilt:1.8deg">
+          <svg viewBox="0 0 30 30" focusable="false" aria-hidden="true">
+            <defs>
+              <linearGradient id="s5paper" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffe4ec"/><stop offset="1" stop-color="#ffc8d5"/>
+              </linearGradient>
+              <linearGradient id="s5heart" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffcdd8"/><stop offset="1" stop-color="#ff9fb4"/>
+              </linearGradient>
+            </defs>
+            <rect x="1.2" y="1.2" width="27.6" height="27.6" rx="8" fill="url(#s5paper)"/>
+            <rect x="1.9" y="1.9" width="26.2" height="26.2" rx="7.4" fill="none" stroke="rgba(200,90,115,0.30)" stroke-width="1"/>
+            <path d="M15 25.6 C5.5 18 3.8 10 8.6 6.6 C11.6 4.6 14.4 6.6 15 9.2 C15.6 6.6 18.4 4.6 21.4 6.6 C26.2 10 24.5 18 15 25.6 Z" fill="url(#s5heart)" stroke="#ef8da2" stroke-width="1"/>
+            <circle cx="10" cy="10.4" r="1.7" fill="#fff" opacity=".45"/>
+            <circle cx="4.8" cy="5.4" r="1" fill="#fff" opacity=".5"/>
+          </svg>
+        </span>
       </div>
 
       <!-- Status hint -->
-      <p class="hint" id="hint">Press OPEN to open the CD door</p>
+      <p class="hint" id="hint">Press OPEN to lift the lid</p>
+
+      <!-- rubber feet -->
+      <div class="feet" aria-hidden="true"></div>
     </article>
 
     <!-- ============ THE BOOKLET ============ -->
     <section class="booklet is-idle" aria-label="Track list">
       <header class="booklet-head">
         <h1>4 SHAMS</h1>
-        <p class="booklet-sub">17 TRACKS &middot; 65 MIN</p>
+        <p class="booklet-sub">14 TRACKS &middot; 51 MIN</p>
       </header>
       <ol class="tracklist" id="tracklist"></ol>
     </section>

@@ -56,3 +56,13 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done · `[!]` blocked ·
 
 ## Phase 9 — Shams-test
 - [ ] User opens https://tommi35.github.io/4-shams/ on a real phone (Wi-Fi + mobile data) and reports what works/feels wrong
+
+## Phase 10 — Refinement: SONY CFD-330 boombox restyle (see REFINEMENT_PLAN.md)
+- [x] A1. TRACKS array → 14 rows (3 removed, renumbered 01–14)
+- [x] A2. /audio: deleted here-comes-the-sun, weak-for-your-love, masterpiece; renamed 5 to new numbers
+- [x] A3. Booklet sub → `14 TRACKS · 51 MIN`
+- [x] A4. Verified headless Chrome: 14 rows, direct-select all 14 = right src + plays, all audio 200/206, no 404s, no console errors; counter chain (01–14) verified
+- [x] B. Boombox identity & realism (brand split, anatomy, CSS pass) — 49-check headless suite all PASS
+- [x] C. Pastel floral sticker decor (inline SVG) — 6 stickers (daisy×2, clover, sun, heart, star), aria-hidden + pointer-events:none, cluster on deck plate right edge + heart wrapping grille top + star on lid corner; 42-check headless suite PASS at 320→1280 (no overlaps, no h-scroll, state machine unchanged)
+- [x] D. Local verification: full combined E2E + layout audit + screenshots — 62-check suite PASS (A+B+C together, incl. `file://` double-click check); `shot-2-{off,open,ready,playing,desktop-ready,file}.png` saved
+- [ ] E. Deploy via temp clone (git mv renames) → verify live → user phone test v2
