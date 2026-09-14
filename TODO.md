@@ -65,4 +65,7 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done · `[!]` blocked ·
 - [x] B. Boombox identity & realism (brand split, anatomy, CSS pass) — 49-check headless suite all PASS
 - [x] C. Pastel floral sticker decor (inline SVG) — 6 stickers (daisy×2, clover, sun, heart, star), aria-hidden + pointer-events:none, cluster on deck plate right edge + heart wrapping grille top + star on lid corner; 42-check headless suite PASS at 320→1280 (no overlaps, no h-scroll, state machine unchanged)
 - [x] D. Local verification: full combined E2E + layout audit + screenshots — 62-check suite PASS (A+B+C together, incl. `file://` double-click check); `shot-2-{off,open,ready,playing,desktop-ready,file}.png` saved
-- [ ] E. Deploy via temp clone (git mv renames) → verify live → user phone test v2
+- [x] E1. Docs updated (TODO / PROJECT_STATE / REFINEMENT_PLAN progress logs) + REFINEMENT_PLAN.md added to repo
+- [x] E2. Temp clone synced: `git rm` deleted 3 removed tracks, `git mv` renamed 5 (100% similarity = history kept); copied index/css/js/robots/docs; commit `c34ee5a` → pushed `main`
+- [x] E3. Live verified: index/css/js 200, renamed audio 200, removed tracks all 404; headless render of live URL 11/11 PASS (14 rows, 6 stickers, ready→playing); `shot-live.png`
+- [ ] E4. User: real-phone Shams-test v2 on live URL (Wi-Fi + mobile data) → report → apply tweaks
