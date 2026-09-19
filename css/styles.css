@@ -1046,9 +1046,14 @@ body {
 
 /* =================================================================
    STICKERS (pastel floral decor — decorative only, never blocks input)
-   Block 1: re-anchored inside the compact boombox silhouette so no
-   sticker floats off the device or overlaps controls. Block 5 will
-   finalize "on real flat surfaces" placement.
+   BLOCK 5: trimmed to 3 and re-anchored onto real flat surfaces of the
+   post-Block-4 geometry:
+   - .s1-daisy (flower) on the front panel's lower-left flat area;
+   - .s5-heart tucked against the right speaker's bezel edge (anchored
+     to .spk-r so it scales with the speaker via --spk);
+   - .s6-star stays on the lid's front-left corner (rotates with flip).
+   Old absolute-px cluster (.s3-clover/.s2-daisy-mini/.s4-sun) + the
+   pre-Block-1 @media overrides are gone.
    ================================================================= */
 .stickers-front {
   position: absolute;
@@ -1071,25 +1076,24 @@ body {
 }
 .sticker svg { display: block; width: 100%; height: 100%; overflow: visible; }
 
-/* flower — lower-left face of the front panel */
-.s1-daisy { width: 26px; height: 26px; left: 2%; bottom: 18px; }
-/* clover — just right of the flower, low on the face */
-.s3-clover { width: 20px; height: 20px; left: 22%; bottom: 12px; }
-/* mini daisy — upper band of the left speaker corner */
-.s2-daisy-mini { width: 18px; height: 18px; right: 38%; top: 8px; }
-/* sun — upper-right face near the lid hinge */
-.s4-sun { width: 22px; height: 22px; right: 2%; top: 84px; }
-/* heart — right speaker cap edge */
-.s5-heart { width: 24px; height: 24px; right: 4%; bottom: 22px; }
+/* flower — front panel's lower-left flat area, clear of the left
+   speaker and the feet */
+.s1-daisy { width: 22px; height: 22px; left: 3%; bottom: 30px; }
 
-/* small sticker on the lid's left corner (rotates with the flip-up lid) */
+/* tiny heart at the right speaker's bezel edge (outer lower rim) —
+   anchored inside .spk-r so it follows the speaker at every size */
+.spk .s5-heart {
+  right: -9%;
+  bottom: -5%;
+  width: calc(var(--spk) * 0.30);
+  height: calc(var(--spk) * 0.30);
+  z-index: 2;
+}
+
+/* star sticker in the lid's front-left corner (rotates with the flip) */
 .sticker-lid { left: 10px; top: 9px; width: 16px; height: 16px; z-index: 4; }
 
 @media (min-width: 640px) {
-  .s1-daisy { width: 32px; height: 32px; left: 3%; bottom: 26px; }
-  .s3-clover { width: 24px; height: 24px; left: 20%; bottom: 16px; }
-  .s2-daisy-mini { width: 22px; height: 22px; right: 36%; top: 14px; }
-  .s4-sun { width: 28px; height: 28px; right: 3%; top: 120px; }
-  .s5-heart { width: 28px; height: 28px; right: 5%; bottom: 30px; }
+  .s1-daisy { width: 30px; height: 30px; left: 3.5%; bottom: 40px; }
   .sticker-lid { left: 18px; top: 16px; width: 22px; height: 22px; }
 }

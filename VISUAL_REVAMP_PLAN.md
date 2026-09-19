@@ -130,20 +130,28 @@ printed white glyphs; strip the gold accents.
 
 ## BLOCK 5 — Stickers: placement and style
 
-Goal: fewer (3–4 max), stuck to **real flat surfaces**, still simple and cute.
+Goal: fewer (3–4 max), stuck to **real flat surfaces**, still simple and cute. ✅ BLOCK 5 DONE + verified headlessly (trimmed 6→3, re-anchored on the post-Block-4 geometry, old absolute-px cluster deleted, state machine + layout invariant, zero console errors).
 
-- [ ] Reduce to max 4 stickers, keeping the existing pastel flower/star/heart art language
+- [x] Reduce to max 4 stickers, keeping the existing pastel flower/star/heart art language
        (add a tiny moon or music note as an optional 4th).
-- [ ] Re-anchor positions onto real surfaces of the new (post-Block 1) geometry:
-       - one flower on the front panel's lower-left flat area;
-       - the tiny star on the lid's front-left corner (keeps rotating with the flip);
-       - one small heart at a speaker bezel edge;
-       - (4th, only if it doesn't crowd) a tiny moon/music note on the deck inside the column.
-- [ ] Keep the existing `.sticker` recipe: slight random tilt (−3°…+3°), worn drop-shadow, matte
-       paper gradient — all `pointer-events: none` + `aria-hidden`.
-- [ ] Delete the old absolute-px cluster (`.s1-daisy`…`.s5-heart` `right:3px; top:NNNpx`) and the
-       `@media` overrides pinned to the pre-Block-1 layout; re-wire class names to new anchors.
-- [ ] Nothing branded, symbolic or political; 3–4 total.
+- [x] Re-anchor positions onto real surfaces of the new (post-Block 1) geometry:
+       - one flower on the front panel's lower-left flat area (`.s1-daisy`, clear of the
+         left speaker, low on the face);
+       - the tiny star on the lid's front-left corner (`.s6-star`, child of `#lid`, keeps
+         rotating with the flip; fully inside the lid at 320/375/390/768/1280);
+       - one small heart at a speaker bezel edge (`.s5-heart` moved INSIDE `.spk-r`, hugs
+         the right speaker's outer lower bezel via `right:-9% bottom:-5%`, sized
+         `calc(var(--spk)*.30)` so it scales with the speaker);
+       - (4th, only if it doesn't crowd) a tiny moon/music note on the deck inside the
+         column — **SKIPPED**: the deck column has no empty flat surface at ≤640 (LCD +
+         full-width keypad fill it), so a 4th would crowd; re-evaluate after Block 6 if
+         the cassette deck adds surface.
+- [x] Keep the existing `.sticker` recipe: slight random tilt (−3°…+3°), worn drop-shadow, matte
+       paper gradient — all `pointer-events: none` + `aria-hidden` (+ `user-select:none`).
+- [x] Delete the old absolute-px cluster (`.s1-daisy`…`.s5-heart` `right:3px; top:NNNpx`) and the
+       `@media` overrides pinned to the pre-Block-1 layout; re-wire class names to new anchors
+       (`.s3-clover`/`.s2-daisy-mini`/`.s4-sun` removed from markup AND stylesheet).
+- [x] Nothing branded, symbolic or political; 3 total (flower + heart + star).
 
 ---
 
