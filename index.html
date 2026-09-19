@@ -24,11 +24,20 @@
         <span class="np-model">CFD-330</span>
       </div>
 
+      <!-- 3-zone boombox grid: [left speaker] [center stack] [right speaker] -->
+      <div class="boombox">
+        <div class="spk spk-l" aria-hidden="true"></div>
+
+        <div class="center-col">
+
       <!-- CD tray (top-loading) with flip-up lid -->
       <div class="tray" id="tray">
         <div class="tray-recess">
           <div class="disc" id="disc" role="button" tabindex="0" aria-label="Tap the disc to load it" title="Insert the disc">
-            <span class="disc-label">4&nbsp;SHAMS</span>
+            <span class="disc-label" aria-hidden="true">
+              <span class="dl-name">4&nbsp;SHAMS</span>
+              <span class="dl-sub">14 TRACKS &middot; 51 MIN</span>
+            </span>
           </div>
         </div>
         <button class="lid" id="lid" type="button" aria-label="Lift or close the disc lid">
@@ -114,6 +123,11 @@
           </div>
         </div>
       </div>
+
+        </div><!-- /center-col -->
+
+        <div class="spk spk-r" aria-hidden="true"></div>
+      </div><!-- /boombox -->
 
       <!-- Front speaker grille -->
       <div class="grille">

@@ -1,6 +1,12 @@
 /* ===================================================================
    4 Shams — virtual CD player
    Plain CSS. No frameworks, no external fonts, no external services.
+
+   BLOCK 1 (silhouette rework — landscape boombox, not a tall card):
+   - 3-zone grid: [round speaker][center command stack][round speaker]
+   - everything scaled down to stay usable on a phone ("scale down,
+     don't crop"); speakers are silhouette placeholders here, full
+     detail lands in Block 4 (which also removes the hidden .grille).
    =================================================================== */
 
 :root {
@@ -25,6 +31,10 @@
   --bone: #d9d2c0;
   --bone2: #c2b99e;
   --lcd-glow: rgba(217, 242, 196, 0.55);
+  /* boombox geometry (mobile scale; overridden >= 640px) */
+  --spk: 52px;      /* round speaker diameter */
+  --tray-h: 48px;   /* CD bay height */
+  --disc: 40px;     /* disc diameter */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,7 +49,7 @@ body {
   background:
     radial-gradient(120% 90% at 50% 0%, var(--bg2) 0%, var(--bg) 55%, #17120c 100%);
   -webkit-tap-highlight-color: transparent;
-  padding: 24px 16px 48px;
+  padding: 14px 10px 48px;
 }
 
 .stage {
@@ -47,7 +57,7 @@ body {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 /* =================================================================
@@ -58,8 +68,8 @@ body {
   background-image:
     repeating-linear-gradient(180deg, rgba(255,255,255,0.012) 0 1px, rgba(0,0,0,0.016) 1px 2px),
     linear-gradient(180deg, var(--ch1) 0%, var(--ch2) 55%, var(--ch3) 100%);
-  border-radius: 24px 24px 18px 18px;
-  padding: 26px 22px 18px;
+  border-radius: 16px 16px 13px 13px;
+  padding: 10px 10px 13px;
   box-shadow:
     0 22px 40px -18px rgba(0,0,0,0.75),
     0 4px 10px rgba(0,0,0,0.45),
@@ -70,11 +80,11 @@ body {
 }
 .device[data-state="off"] { filter: grayscale(0.42) brightness(0.9); }
 
-/* front-face glossy seam */
+/* front-face gloss seam */
 .device::after {
   content: "";
   position: absolute;
-  left: 14px; right: 14px; top: 12px;
+  left: 10px; right: 10px; top: 6px;
   height: 2px;
   border-radius: 2px;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
@@ -82,13 +92,46 @@ body {
 }
 
 /* =================================================================
+   BOOMBOX GRID — [round speaker] [center stack] [round speaker]
+   ================================================================= */
+.boombox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.spk {
+  flex: none;
+  width: var(--spk);
+  height: var(--spk);
+  border-radius: 50%;
+  background:
+    radial-gradient(rgba(8,10,12,0.95) 1.3px, transparent 1.6px),
+    radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1.4px);
+  background-size: 8px 8px, 8px 8px;
+  background-position: 0 0, 4px 4px;
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.7),
+    inset 0 0 0 1px rgba(255,255,255,0.06),
+    inset 0 0 18px rgba(0,0,0,0.55),
+    0 3px 8px rgba(0,0,0,0.4);
+}
+.center-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* =================================================================
    CARRY HANDLE + NAMEPLATE
    ================================================================= */
 .handle-recess {
   position: relative;
-  height: 22px;
-  margin: -8px 10px 12px;
-  border-radius: 11px;
+  height: 11px;
+  margin: 0 8px 5px;
+  border-radius: 7px;
   background: linear-gradient(180deg, #0c0d0f 0%, #26282c 100%);
   box-shadow:
     inset 0 2px 5px rgba(0,0,0,0.85),
@@ -98,9 +141,9 @@ body {
 .handle-bar {
   position: absolute;
   left: 50%; top: 50%;
-  width: 42%; height: 8px;
+  width: 42%; height: 5px;
   transform: translate(-50%, -50%);
-  border-radius: 6px;
+  border-radius: 4px;
   background: linear-gradient(180deg, #4c5056 0%, #292c31 100%);
   box-shadow:
     0 1px 3px rgba(0,0,0,0.8),
@@ -111,20 +154,20 @@ body {
   position: relative;
   display: flex;
   align-items: baseline;
-  gap: 10px;
-  padding: 4px 12px 12px;
-  margin-bottom: 14px;
+  gap: 6px;
+  padding: 0 6px 5px;
+  margin-bottom: 5px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .nameplate::after {
   content: "";
   position: absolute;
-  left: 12px; right: 12px; bottom: -1px;
+  left: 6px; right: 6px; bottom: -1px;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
 }
 .np-brand {
-  font-size: 21px;
+  font-size: 14px;
   font-weight: 800;
   font-style: italic;
   letter-spacing: 0.12em;
@@ -132,9 +175,9 @@ body {
   text-shadow: 0 1px 2px rgba(0,0,0,0.65);
 }
 .np-model {
-  font-size: 9px;
+  font-size: 7px;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   color: rgba(234,228,214,0.6);
   text-shadow: 0 1px 1px rgba(0,0,0,0.55);
 }
@@ -147,8 +190,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 180px;
-  margin-bottom: 18px;
+  height: var(--tray-h);
+  margin-bottom: 5px;
   perspective: 900px;
 }
 
@@ -157,7 +200,7 @@ body {
   left: 6%; right: 6%; top: 0; bottom: 0;
   background:
     radial-gradient(circle at 50% 45%, #26221c 0%, #16130f 68%, #0c0a08 100%);
-  border-radius: 16px;
+  border-radius: 10px;
   box-shadow:
     inset 0 3px 8px rgba(0,0,0,0.75),
     inset 0 -1px 0 rgba(255,255,255,0.08),
@@ -166,21 +209,38 @@ body {
   overflow: hidden;
 }
 
-/* the disc */
+/* the disc — iridescent CD diffraction (Block 2):
+   full-spectrum conic bands (violet -> blue -> cyan -> green -> yellow ->
+   orange -> red), second low-opacity rainbow layer at a different start
+   angle so the combined bands sweep/moiré as the disc rotates, fine groove
+   texture on top, all slightly desaturated to read as matte plastic. */
 .disc {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 128px;
-  height: 128px;
-  margin: -64px 0 0 -64px;
+  width: var(--disc);
+  height: var(--disc);
+  margin: calc(var(--disc) / -2) 0 0 calc(var(--disc) / -2);
   border-radius: 50%;
   background:
-    repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,0.10) 0 1px, rgba(0,0,0,0.08) 1px 3px),
-    conic-gradient(from 210deg,
-      #cfd3d8, #9fa7b2, #d3d8de, #b9c0c9, #e2e6ea, #8f97a3, #cfd3d8);
+    repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,0.11) 0 1px, rgba(0,0,0,0.09) 1px 3px),
+    radial-gradient(circle at 38% 34%, rgba(255,255,255,0.14), transparent 55%),
+    conic-gradient(from 40deg,
+      hsla(262, 26%, 62%, 0.42) 0deg 90deg,
+      hsla(178, 24%, 64%, 0.42) 90deg 180deg,
+      hsla(48, 26%, 66%, 0.42) 180deg 270deg,
+      hsla(0, 24%, 60%, 0.42) 270deg 360deg),
+    conic-gradient(from 168deg,
+      #8b7ba0 0deg 45deg,
+      #7187ab 45deg 90deg,
+      #6da2ab 90deg 135deg,
+      #6f9c82 135deg 180deg,
+      #b0a276 180deg 225deg,
+      #bb8f63 225deg 270deg,
+      #aa716e 270deg 315deg,
+      #8b7ba0 315deg 360deg);
   box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.55),
     inset 0 0 22px rgba(0,0,0,0.30),
     0 2px 6px rgba(0,0,0,0.4);
   opacity: 0.34;
@@ -189,35 +249,69 @@ body {
   animation-play-state: paused;
   cursor: pointer;
 }
+/* clear-plastic spindle ring around the label (real CDs show the thin
+   molded stamper ring just outside the printed label) */
 .disc::before {
   content: "";
   position: absolute;
-  inset: 24px;
+  inset: calc(var(--disc) * 0.145);
   border-radius: 50%;
   background:
-    radial-gradient(circle at 50% 50%, #fff 0 12px, #c6cdd5 13px 15px, rgba(0,0,0,0) 16px);
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.35);
+    radial-gradient(circle at 50% 50%,
+      rgba(0,0,0,0) 0 calc(var(--disc) * 0.285),
+      rgba(210,218,228,0.55) calc(var(--disc) * 0.285) calc(var(--disc) * 0.315),
+      rgba(0,0,0,0) calc(var(--disc) * 0.33));
+  box-shadow: inset 0 0 calc(var(--disc) * 0.08) rgba(0,0,0,0.28);
 }
+/* .disc-label — printed paper sticker: full-bleed cream circle, concentric
+   tint + paper grain, die-cut shadow, charcoal ink. Decorative: aria-hidden
+   + pointer-events:none (clicks pass through to the .disc button). */
 .disc-label {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 52px;
-  height: 52px;
+  width: calc(var(--disc) * 0.58);
+  height: calc(var(--disc) * 0.58);
   border-radius: 50%;
-  background: linear-gradient(180deg, var(--body), var(--body2));
-  border: 1px solid rgba(0,0,0,0.25);
+  background:
+    repeating-linear-gradient(45deg, rgba(150,120,70,0.05) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(-45deg, rgba(150,120,70,0.05) 0 1px, transparent 1px 3px),
+    repeating-radial-gradient(circle at 50% 45%, rgba(160,132,86,0.11) 0 1px, transparent 1px 5px),
+    radial-gradient(circle at 42% 36%, rgba(255,252,240,0.85), transparent 48%),
+    linear-gradient(180deg, #f7f0dd 0%, #efe2c2 55%, #e5d5ad 100%);
+  border: 1px solid rgba(90,70,45,0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    inset 0 -2px 4px rgba(130,100,60,0.28),
+    0 1px 2px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(0,0,0,0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  line-height: 1.25;
-  color: var(--brass-dark);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.dl-name {
+  display: block;
+  font-size: calc(var(--disc) * 0.135);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: #2b2620;
+  white-space: nowrap;
+}
+.dl-sub {
+  display: block;
+  font-size: calc(var(--disc) * 0.062);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  color: #49443b;
+  opacity: 0.78;
+  white-space: nowrap;
 }
 
 .device[data-state="open"] .disc { opacity: 0.96; }
@@ -230,7 +324,7 @@ body {
 .lid {
   position: absolute;
   left: 6%; right: 6%; top: 0; bottom: 0;
-  border-radius: 16px;
+  border-radius: 10px;
   background: linear-gradient(165deg, rgba(40,48,58,0.6) 0%, rgba(11,14,19,0.88) 100%);
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,0.1),
@@ -252,8 +346,8 @@ body {
 .lid::before {
   content: "";
   position: absolute;
-  left: 14px; right: 14px; top: 3px;
-  height: 5px;
+  left: 10px; right: 10px; top: 3px;
+  height: 4px;
   background:
     radial-gradient(circle at 8% 50%, #9aa1a9 0 2px, transparent 2.3px),
     radial-gradient(circle at 92% 50%, #9aa1a9 0 2px, transparent 2.3px);
@@ -264,13 +358,13 @@ body {
   position: absolute;
   left: 50%; bottom: 4px;
   transform: translateX(-50%);
-  width: 24px; height: 5px;
+  width: 18px; height: 4px;
   border-radius: 2px;
   background: linear-gradient(180deg, #5c646d 0%, #2f3338 100%);
   box-shadow: inset 0 1px 1px rgba(255,255,255,0.14);
 }
 .lid-mark {
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.3em;
   color: rgba(235,240,246,0.5);
@@ -279,27 +373,13 @@ body {
 }
 
 /* =================================================================
-   DECK PLATE (wraps LCD + transport keys)
-   ================================================================= */
-.deck {
-  margin-top: 16px;
-  padding: 13px 12px 14px;
-  border-radius: 16px;
-  background: linear-gradient(180deg, #27292d 0%, #1b1d20 100%);
-  box-shadow:
-    inset 0 2px 7px rgba(0,0,0,0.6),
-    inset 0 0 0 1px rgba(255,255,255,0.05),
-    0 1px 0 rgba(255,255,255,0.09);
-}
-
-/* =================================================================
    LCD
    ================================================================= */
 .lcd {
   position: relative;
   background: var(--bezel);
-  border-radius: 12px;
-  padding: 10px 12px 9px;
+  border-radius: 9px;
+  padding: 5px 7px 5px;
   box-shadow:
     inset 0 2px 6px rgba(0,0,0,0.85),
     0 1px 0 rgba(255,255,255,0.5);
@@ -332,24 +412,24 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  font-size: 10px;
+  font-size: 8px;
   letter-spacing: 0.16em;
-  margin-bottom: 7px;
+  margin-bottom: 4px;
   color: inherit;
 }
 #lcdName {
   font-weight: 700;
-  font-size: 9px;
+  font-size: 7px;
   letter-spacing: 0.3em;
   opacity: 0.85;
 }
-.lcd-icon-play { font-size: 9px; }
+.lcd-icon-play { font-size: 8px; }
 .device[data-state="off"] .lcd-icon-play { opacity: 0; }
 
 .lcd-scroll {
-  height: 20px;
-  line-height: 20px;
-  font-size: 14px;
+  height: 13px;
+  line-height: 13px;
+  font-size: 10px;
   letter-spacing: 0.06em;
   white-space: nowrap;
   overflow: hidden;
@@ -360,14 +440,14 @@ body {
 .lcd-bottom {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 8px;
-  font-size: 10px;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 8px;
 }
-.lcd-track { min-width: 22px; letter-spacing: 0.1em; }
+.lcd-track { min-width: 18px; letter-spacing: 0.1em; }
 .lcd-progress-track {
   flex: 1;
-  height: 7px;
+  height: 5px;
   border-radius: 2px;
   background: var(--lcd-off);
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
@@ -381,27 +461,29 @@ body {
   opacity: 0.9;
   transition: width 0.25s linear;
 }
-.lcd-time { min-width: 26px; text-align: center; }
+.lcd-time { min-width: 24px; text-align: center; }
 .lcd-sep { opacity: 0.5; }
 
 /* =================================================================
-   CONTROLS
+   CONTROLS — 2x2 keypad in the narrow center column on mobile;
+   4-across on wide screens (>= 640px).
    ================================================================= */
 .controls {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  gap: 5px;
+  margin-top: 5px;
 }
 .ctrl {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 2px;
   background: linear-gradient(180deg, #14151a 0%, #212329 100%);
-  border-radius: 18px;
-  padding: 13px 0 8px;
+  border-radius: 10px;
+  padding: 4px 0;
   box-shadow:
     inset 0 2px 5px rgba(0,0,0,0.7),
     inset 0 -1px 0 rgba(255,255,255,0.06),
@@ -411,10 +493,10 @@ body {
 .ctrl-btn {
   background: linear-gradient(180deg, #ece4d0 0%, #cfc3a4 100%);
   border: 1px solid rgba(0,0,0,0.35);
-  width: 54px;
-  height: 54px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  padding: 13px;
+  padding: 11px;
   cursor: pointer;
   color: var(--ink);
   box-shadow:
@@ -427,7 +509,7 @@ body {
 .ctrl-btn:active { transform: translateY(3px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.4); }
 .ctrl-btn:disabled { opacity: 0.4; cursor: default; }
 
-.ctrl-play { width: 60px; height: 60px; background: linear-gradient(180deg, #b08c55 0%, #8a6b3e 100%); color: #fff; }
+.ctrl-play { width: 48px; height: 48px; background: linear-gradient(180deg, #b08c55 0%, #8a6b3e 100%); color: #fff; }
 .ico-pause { display: none; }
 .device[data-playing="true"] .ico-play { display: none; }
 .device[data-playing="true"] .ico-pause { display: block; }
@@ -435,52 +517,51 @@ body {
 .ctrl-eject svg, .ctrl-btn svg { fill: currentColor; }
 
 .ctrl-engrave {
-  font-size: 9px;
+  display: none; /* printed glyphs return on desktop */
+  font-size: 7px;
   font-weight: 700;
   letter-spacing: 0.05em;
   color: rgba(220,226,232,0.35);
-  text-shadow: 0 1px 0 rgba(0,0,0,0.6);
-  line-height: 12px;
-  min-height: 12px;
+  line-height: 9px;
+  min-height: 9px;
 }
 
 /* =================================================================
-   VOLUME
+   VOLUME — compact row under the keypad in the center column.
    ================================================================= */
 .vol {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 16px;
-  padding: 10px 12px;
+  gap: 8px;
+  margin-top: 5px;
+  padding: 5px 8px;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 14px;
+  border-radius: 10px;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.35);
   position: relative;
 }
 .vol-label {
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 700;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.2em;
   writing-mode: vertical-rl;
   color: rgba(220,226,232,0.55);
-  text-shadow: 0 1px 0 rgba(0,0,0,0.5);
 }
 .vol-track { flex: 1; min-width: 0; }
 .vol-ticks {
   display: block;
-  height: 7px;
-  margin: 0 2px 4px;
+  height: 5px;
+  margin: 0 2px 3px;
   background: repeating-linear-gradient(90deg, rgba(220,226,232,0.35) 0 1px, transparent 1px 5px);
   opacity: 0.5;
 }
-.vol-row { display: flex; align-items: center; gap: 8px; }
+.vol-row { display: flex; align-items: center; gap: 6px; }
 .vol-btn {
   border: none;
   background: transparent;
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   padding: 2px;
   color: var(--bone);
   cursor: pointer;
@@ -503,8 +584,8 @@ body {
 }
 .vol-range::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background:
     radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7), transparent 60%),
@@ -513,7 +594,7 @@ body {
   box-shadow: 0 1px 4px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.3);
 }
 .vol-range::-moz-range-thumb {
-  width: 20px; height: 20px;
+  width: 16px; height: 16px;
   border-radius: 50%;
   background:
     radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7), transparent 60%),
@@ -525,82 +606,31 @@ body {
 
 /* =================================================================
    SPEAKER GRILLE
+   Block 1: the flanking round speakers (`.spk`) now carry the
+   speaker role, so the old full-width strip is hidden here.
+   Block 4 deletes this markup entirely.
    ================================================================= */
-.grille {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  gap: 6px;
-  margin-top: 16px;
-}
-.grille-cap {
-  flex: none;
-  width: 26px;
-  border-radius: 9px;
-  position: relative;
-  background: radial-gradient(circle at 50% 26%, #3b3f45 0%, #14161a 72%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.12),
-    inset 0 -1px 2px rgba(0,0,0,0.6);
-}
-.grille-cap::before {
-  content: "";
-  position: absolute;
-  left: 50%; top: 7px;
-  width: 7px; height: 7px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #7d838b, #2b2e33 70%);
-  box-shadow: 0 1px 1px rgba(0,0,0,0.6);
-}
-.grille-main {
-  flex: 1;
-  height: 58px;
-  border-radius: 12px;
-  background:
-    radial-gradient(rgba(8,10,12,0.95) 1.3px, transparent 1.6px),
-    radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1.4px);
-  background-size: 8px 8px, 8px 8px;
-  background-position: 0 0, 4px 4px;
-  box-shadow:
-    inset 0 2px 6px rgba(0,0,0,0.7),
-    inset 0 0 0 1px rgba(255,255,255,0.06);
-}
-.grille-mark {
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.34em;
-  padding: 3px 7px;
-  border-radius: 4px;
-  color: rgba(234,228,214,0.85);
-  background: rgba(28,30,34,0.6);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.6);
-  text-shadow: 0 1px 1px rgba(0,0,0,0.7);
-  z-index: 2;
-}
+.grille { display: none; }
 
 /* =================================================================
    HINT
    ================================================================= */
 .hint {
-  margin-top: 14px;
+  margin-top: 9px;
   text-align: center;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   color: rgba(222,216,196,0.75);
-  min-height: 16px;
+  min-height: 15px;
 }
 
 /* =================================================================
    RUBBER FEET
    ================================================================= */
 .feet {
-  height: 10px;
-  margin: 14px 0 -4px;
-  border-radius: 6px;
+  height: 9px;
+  margin: 10px 0 -3px;
+  border-radius: 5px;
   background:
     radial-gradient(circle at 12% 50%, #08090b 0 4px, transparent 5px),
     radial-gradient(circle at 37% 50%, #08090b 0 4px, transparent 5px),
@@ -716,30 +746,108 @@ body {
   animation: spin 3.2s linear infinite;
   animation-play-state: running;
 }
-.device[data-playing="true"] .disc::before {
-  animation: spin 3.2s linear infinite reverse;
+.device[data-playing="true"] .disc-label {
+  animation: spin-label 3.2s linear infinite reverse;
+  animation-play-state: running;
 }
 @keyframes spin { to { transform: rotate(360deg) scale(1); } }
+@keyframes spin-label {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+/* =================================================================
+   VERY NARROW PHONES (<= 359): the center column is too tight for a
+   single-row keypad, so the 2x2 pad stays and everything else is
+   compacted to keep the body as squat as the 44px tap-target floor
+   allows (documented exception — WCAG wins over landscape).
+   ================================================================= */
+@media (max-width: 359px) {
+  .device { padding: 8px 9px 11px; }
+  .handle-recess { height: 10px; margin: 0 8px 4px; }
+  .nameplate { padding: 0 6px 4px; margin-bottom: 4px; }
+  .np-brand { font-size: 13px; }
+  .np-model { font-size: 6px; }
+  .tray { height: 40px; margin-bottom: 4px; }
+  .lcd { padding: 4px 6px 4px; }
+  .lcd-top { font-size: 7px; margin-bottom: 2px; }
+  .lcd-scroll { height: 12px; line-height: 12px; font-size: 9px; }
+  .lcd-bottom { gap: 3px; margin-top: 2px; font-size: 7px; }
+  .lcd-track { min-width: 15px; }
+  .lcd-time { min-width: 21px; }
+  .controls { gap: 4px; margin-top: 4px; }
+  .ctrl { padding: 3px 0; gap: 1px; border-radius: 10px; }
+  .ctrl-btn { width: 44px; height: 44px; padding: 11px; }
+  .ctrl-play { width: 44px; height: 44px; }
+  .vol { gap: 6px; margin-top: 4px; padding: 4px 7px; }
+  .vol-ticks { height: 4px; margin-bottom: 2px; }
+  .hint { margin-top: 7px; font-size: 10px; min-height: 13px; }
+  .feet { height: 8px; margin: 8px 0 -3px; }
+}
+
+/* =================================================================
+   MID-SIZE PHONES (360-639): keypad unrolls to one row and the
+   speakers grow a little, keeping the body landscape on a phone.
+   ================================================================= */
+@media (min-width: 360px) and (max-width: 639px) {
+  :root { --spk: 64px; --tray-h: 58px; --disc: 50px; }
+  .boombox { gap: 8px; }
+  .controls { grid-template-columns: repeat(4, 1fr); grid-auto-rows: auto; gap: 6px; }
+  .ctrl { padding: 6px 0; }
+}
 
 /* =================================================================
    RESPONSIVE / big screens
+   Boombox grows into a proper wide landscape on larger screens.
    ================================================================= */
 @media (min-width: 640px) {
-  .stage { max-width: 460px; gap: 26px; }
-  .device { padding: 32px 30px 26px; }
-  .tray { height: 210px; }
-  .disc { width: 150px; height: 150px; margin: -75px 0 0 -75px; }
+  :root {
+    --spk: 136px;
+    --tray-h: 104px;
+    --disc: 96px;
+  }
+  .stage { max-width: 580px; gap: 22px; }
+  .device { padding: 14px 18px 16px; border-radius: 22px 22px 16px 16px; }
+  .boombox { gap: 10px; }
+  .handle-recess { height: 14px; margin: 0 12px 8px; }
+  .handle-bar { height: 6px; }
+  .nameplate { padding: 2px 12px 9px; gap: 8px; margin-bottom: 9px; }
+  .np-brand { font-size: 19px; }
+  .np-model { font-size: 9px; letter-spacing: 0.22em; }
+  .deck { padding: 10px 12px 12px; border-radius: 14px; margin-top: 8px; }
+  .lcd { padding: 8px 10px 8px; border-radius: 10px; }
+  .lcd-top { font-size: 9px; margin-bottom: 4px; }
+  #lcdName { font-size: 8px; }
+  .lcd-scroll { height: 17px; line-height: 17px; font-size: 12px; }
+  .lcd-bottom { gap: 5px; margin-top: 5px; font-size: 9px; }
+  .lcd-time { min-width: 25px; }
+  .controls { grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 8px; }
+  .ctrl { border-radius: 13px; padding: 8px 0 6px; gap: 4px; }
+  .ctrl-btn { width: 48px; height: 48px; padding: 12px; }
+  .ctrl-play { width: 52px; height: 52px; }
+  .ctrl-engrave { font-size: 8px; line-height: 10px; min-height: 10px; }
+  .vol { gap: 10px; margin-top: 8px; padding: 8px 12px; border-radius: 12px; }
+  .vol-label { font-size: 8px; letter-spacing: 0.24em; }
+  .vol-btn { width: 24px; height: 24px; }
+  .vol-range::-webkit-slider-thumb { width: 18px; height: 18px; }
+  .vol-range::-moz-range-thumb { width: 18px; height: 18px; }
+  .hint { margin-top: 12px; font-size: 12px; }
+  .feet { height: 10px; margin: 12px 0 -4px; }
 }
 
 /* =================================================================
    REDUCED MOTION
    ================================================================= */
 @media (prefers-reduced-motion: reduce) {
-  .device[data-playing="true"] .disc { animation-duration: 9s; }
+  .device[data-playing="true"] .disc,
+  .device[data-playing="true"] .disc-label { animation-duration: 9s; }
 }
 
 /* =================================================================
    STICKERS (pastel floral decor — decorative only, never blocks input)
+   Block 1: re-anchored inside the compact boombox silhouette so no
+   sticker floats off the device or overlaps controls. Block 5 will
+   finalize "on real flat surfaces" placement.
    ================================================================= */
 .stickers-front {
   position: absolute;
@@ -762,22 +870,25 @@ body {
 }
 .sticker svg { display: block; width: 100%; height: 100%; overflow: visible; }
 
-/* cluster: right edge of the deck plate (always within the blank right column) */
-.s1-daisy { width: 30px; height: 30px; right: 3px; top: 306px; }
-.s3-clover { width: 24px; height: 24px; right: 7px; top: 326px; z-index: 1; }
-.s2-daisy-mini { width: 22px; height: 22px; right: 5px; top: 358px; z-index: 2; }
-.s4-sun { width: 26px; height: 26px; right: 3px; top: 388px; }
-
-/* corner sticker wrapping onto the grille's top edge (right cap column) */
-.s5-heart { width: 28px; height: 28px; right: 3px; top: 594px; }
+/* flower — lower-left face of the front panel */
+.s1-daisy { width: 26px; height: 26px; left: 2%; bottom: 18px; }
+/* clover — just right of the flower, low on the face */
+.s3-clover { width: 20px; height: 20px; left: 22%; bottom: 12px; }
+/* mini daisy — upper band of the left speaker corner */
+.s2-daisy-mini { width: 18px; height: 18px; right: 38%; top: 8px; }
+/* sun — upper-right face near the lid hinge */
+.s4-sun { width: 22px; height: 22px; right: 2%; top: 84px; }
+/* heart — right speaker cap edge */
+.s5-heart { width: 24px; height: 24px; right: 4%; bottom: 22px; }
 
 /* small sticker on the lid's left corner (rotates with the flip-up lid) */
-.sticker-lid { left: 16px; top: 15px; width: 20px; height: 20px; z-index: 4; }
+.sticker-lid { left: 10px; top: 9px; width: 16px; height: 16px; z-index: 4; }
 
 @media (min-width: 640px) {
-  .s1-daisy { top: 342px; }
-  .s3-clover { top: 362px; }
-  .s2-daisy-mini { top: 394px; }
-  .s4-sun { top: 424px; }
-  .s5-heart { top: 630px; }
+  .s1-daisy { width: 32px; height: 32px; left: 3%; bottom: 26px; }
+  .s3-clover { width: 24px; height: 24px; left: 20%; bottom: 16px; }
+  .s2-daisy-mini { width: 22px; height: 22px; right: 36%; top: 14px; }
+  .s4-sun { width: 28px; height: 28px; right: 3%; top: 120px; }
+  .s5-heart { width: 28px; height: 28px; right: 5%; bottom: 30px; }
+  .sticker-lid { left: 18px; top: 16px; width: 22px; height: 22px; }
 }
