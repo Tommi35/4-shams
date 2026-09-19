@@ -42,7 +42,7 @@ LIVE at https://tommi35.github.io/4-shams/ (verified, refinement deployed). Refi
 - Re-encoded to 160 kbps mp3. Originals untouched.
 - Design: portable top-loading CD player, flip-up lid, warm cream/brass, LCD marquee, spin-on-play, autoplay-safe flow.
 - **Refinement (locked in REFINEMENT_PLAN.md):** player becomes a Sony CFD-330 boombox (brand on the player); disc/album/booklet/footer/site stay `4 SHAMS`; pastel floral stickers; playback logic & state machine unchanged.
-- **Blocks A–E status:** A (catalog) ✓, B (boombox restyle) ✓, C (stickers) ✓, D (final local verification) ✓, E1–E3 (deploy + live verify) ✓ — all headless-verified. **E4 (real-phone Shams-test v2 on the live URL) is the user's handoff step.** Desktop files and live site are in sync; temp clone is current (commit `bbb1952`).
+- **Blocks A–E status:** A (catalog) ✓, B (boombox restyle) ✓, C (stickers) ✓, D (final local verification) ✓, E1–E3 (deploy + live verify) ✓ — all headless-verified. **E4 (real-phone Shams-test v2 on the live URL) is the user's handoff step.** Desktop files and live site are in sync; temp clone is current (commit `a96cfd5`).
 - Single <audio> element, no frameworks, no build step, no external requests.
 
 ## Needs my input (open decisions)
