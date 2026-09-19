@@ -5,8 +5,12 @@
    BLOCK 1 (silhouette rework — landscape boombox, not a tall card):
    - 3-zone grid: [round speaker][center command stack][round speaker]
    - everything scaled down to stay usable on a phone ("scale down,
-     don't crop"); speakers are silhouette placeholders here, full
-     detail lands in Block 4 (which also removes the hidden .grille).
+     don't crop").
+   BLOCK 4 (speakers, handle, antenna): flanking round speakers with a
+   dot-mesh cloth, dark centre cone, fine plastic bezel ring + screw dots
+   ("STEREO" printed micro-label); foldable metal carry bar hinged at both
+   top corners; telescoping back antenna at the top-right. The old
+   full-width .grille strip is removed (markup + CSS).
    =================================================================== */
 
 :root {
@@ -117,21 +121,66 @@ body {
   justify-content: center;
   gap: 6px;
 }
+/* flanking round speakers — dot-matrix mesh cloth over a dark centre
+   cone, wrapped in a fine plastic bezel ring with 3 screw dots
+   (Block 4). The .spk box is exactly the circle; the bezel is drawn
+   with inset ring shadows, so nothing overflows the box. */
 .spk {
   flex: none;
+  position: relative;
   width: var(--spk);
   height: var(--spk);
   border-radius: 50%;
   background:
-    radial-gradient(rgba(8,10,12,0.95) 1.3px, transparent 1.6px),
-    radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1.4px);
-  background-size: 8px 8px, 8px 8px;
-  background-position: 0 0, 4px 4px;
+    radial-gradient(circle at 50% 50%, #0a0c10 0%, #0c0f13 30%, rgba(13,15,19,0.92) 46%, rgba(15,17,21,0) 62%),
+    radial-gradient(rgba(198,206,216,0.30) 1px, transparent 1.5px),
+    radial-gradient(rgba(168,176,186,0.17) 1px, transparent 1.5px),
+    radial-gradient(circle at 50% 40%, #26292e 0%, #171a1e 62%, #0e1013 100%);
+  background-size: auto, 7px 7px, 7px 7px, auto;
+  background-position: 0 0, 0 0, 3.5px 3.5px, 0 0;
   box-shadow:
-    inset 0 2px 6px rgba(0,0,0,0.7),
-    inset 0 0 0 1px rgba(255,255,255,0.06),
-    inset 0 0 18px rgba(0,0,0,0.55),
+    inset 0 0 0 2px rgba(0,0,0,0.9),
+    inset 0 2px 7px rgba(0,0,0,0.75),
+    inset 0 0 16px rgba(0,0,0,0.6),
     0 3px 8px rgba(0,0,0,0.4);
+}
+/* fine plastic bezel ring (concentric inset rings = the rim) */
+.spk::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 2px #202329,
+    inset 0 0 0 4px #33373e,
+    inset 0 0 0 5px rgba(0,0,0,0.5),
+    inset 0 0 0 6px rgba(255,255,255,0.10);
+}
+/* 3 small screw dots on the bezel */
+.spk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-size: 100% 100%;
+  background:
+    radial-gradient(circle at 50% 9%, #060708 0 1.6px, #484c54 1.9px 2.3px, transparent 2.5px),
+    radial-gradient(circle at 11% 76%, #060708 0 1.6px, #484c54 1.9px 2.3px, transparent 2.5px),
+    radial-gradient(circle at 89% 76%, #060708 0 1.6px, #484c54 1.9px 2.3px, transparent 2.5px);
+}
+.spk-stereo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  font-size: calc(var(--spk) * 0.115);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-align: center;
+  white-space: nowrap;
+  color: rgba(225,232,240,0.55);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.85);
 }
 .center-col {
   flex: 1;
@@ -143,28 +192,94 @@ body {
 
 /* =================================================================
    CARRY HANDLE + NAMEPLATE
+   Foldable metal carry bar: a chrome bar arcing across the top,
+   hinged in a small chrome bracket at each top corner. Purely
+   decorative — pointer-events: none, aria-hidden.
    ================================================================= */
-.handle-recess {
+.handle {
   position: relative;
-  height: 11px;
-  margin: 0 8px 5px;
-  border-radius: 7px;
-  background: linear-gradient(180deg, #0c0d0f 0%, #26282c 100%);
-  box-shadow:
-    inset 0 2px 5px rgba(0,0,0,0.85),
-    inset 0 -1px 0 rgba(255,255,255,0.08),
-    0 1px 0 rgba(255,255,255,0.05);
+  z-index: 1;
+  height: 22px;
+  margin: 0 6px 3px;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .handle-bar {
   position: absolute;
-  left: 50%; top: 50%;
-  width: 42%; height: 5px;
-  transform: translate(-50%, -50%);
-  border-radius: 4px;
-  background: linear-gradient(180deg, #4c5056 0%, #292c31 100%);
+  left: 11%; right: 11%; top: 0;
+  height: 19px;
+  border-radius: 50% / 100% 100% 6px 6px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.10), transparent 30%, rgba(0,0,0,0.30) 70%, rgba(255,255,255,0.08)),
+    linear-gradient(180deg, #6a7078 0%, #3d4147 40%, #22252a 100%);
   box-shadow:
-    0 1px 3px rgba(0,0,0,0.8),
-    inset 0 1px 0 rgba(255,255,255,0.22);
+    inset 0 2px 2px rgba(255,255,255,0.28),
+    inset 0 -3px 5px rgba(0,0,0,0.55),
+    0 2px 4px rgba(0,0,0,0.45);
+}
+.handle-bracket {
+  position: absolute;
+  bottom: -3px;
+  width: 10px;
+  height: 12px;
+  border-radius: 3px 3px 2px 2px;
+  background: linear-gradient(180deg, #8a909a 0%, #4a4f57 60%, #2a2d33 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 0 -2px 3px rgba(0,0,0,0.5),
+    0 1px 2px rgba(0,0,0,0.5);
+}
+.bracket-l { left: 10%; }
+.bracket-r { right: 10%; }
+
+/* telescoping back antenna — thin chrome mast at the top-right corner,
+   leaning slightly inward so it never causes horizontal scroll; two
+   segment seams + a tiny tip ball. Decorative: pointer-events: none,
+   aria-hidden, z-index 0 (sits behind the handle). */
+.antenna {
+  position: absolute;
+  right: 4px;
+  top: -56px;
+  width: 5px;
+  height: 56px;
+  transform-origin: 50% 100%;
+  transform: rotate(-16deg);
+  border-radius: 3px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.32), rgba(255,255,255,0.05) 30%, rgba(0,0,0,0.35) 68%, rgba(255,255,255,0.28)),
+    linear-gradient(180deg,
+      #88909b 0 20px, #3a3f46 20px 21px,
+      #7d8691 21px 40px, #3a3f46 40px 41px,
+      #9ba4af 41px 56px);
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.5);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 0;
+}
+.antenna::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f0f3f6, #9aa3ae 60%, #4a5059 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+.antenna::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 6px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #565b63 0%, #22252a 100%);
 }
 
 .nameplate {
@@ -681,14 +796,6 @@ body {
 .vol-range:disabled { opacity: 0.4; }
 
 /* =================================================================
-   SPEAKER GRILLE
-   Block 1: the flanking round speakers (`.spk`) now carry the
-   speaker role, so the old full-width strip is hidden here.
-   Block 4 deletes this markup entirely.
-   ================================================================= */
-.grille { display: none; }
-
-/* =================================================================
    HINT
    ================================================================= */
 .hint {
@@ -840,7 +947,10 @@ body {
    ================================================================= */
 @media (max-width: 359px) {
   .device { padding: 8px 9px 11px; }
-  .handle-recess { height: 10px; margin: 0 8px 4px; }
+  .handle { height: 20px; margin: 0 6px 3px; }
+  .handle-bar { height: 17px; }
+  .handle-bracket { height: 11px; bottom: -2px; }
+  .antenna { top: -48px; height: 48px; }
   .nameplate { padding: 0 6px 4px; margin-bottom: 4px; }
   .np-brand { font-size: 13px; }
   .np-model { font-size: 6px; }
@@ -885,8 +995,21 @@ body {
   .stage { max-width: 580px; gap: 22px; }
   .device { padding: 14px 18px 16px; border-radius: 22px 22px 16px 16px; }
   .boombox { gap: 10px; }
-  .handle-recess { height: 14px; margin: 0 12px 8px; }
-  .handle-bar { height: 6px; }
+  .handle { height: 38px; margin: 0 12px 5px; }
+  .handle-bar { height: 34px; }
+  .handle-bracket { width: 14px; height: 18px; bottom: -4px; }
+  .antenna { right: 5px; top: -128px; width: 7px; height: 128px; transform: rotate(-14deg); }
+  .antenna::before { width: 10px; height: 10px; }
+  .antenna::after { width: 13px; height: 8px; }
+  .spk::before {
+    box-shadow:
+      inset 0 0 0 4px #202329,
+      inset 0 0 0 7px #33373e,
+      inset 0 0 0 9px rgba(0,0,0,0.5),
+      inset 0 0 0 10px rgba(255,255,255,0.10);
+  }
+  .spk::after { background-size: 135% 135%; }
+  .spk-stereo { font-size: calc(var(--spk) * 0.105); }
   .nameplate { padding: 2px 12px 9px; gap: 8px; margin-bottom: 9px; }
   .np-brand { font-size: 19px; }
   .np-model { font-size: 9px; letter-spacing: 0.22em; }
