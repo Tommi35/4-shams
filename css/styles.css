@@ -35,6 +35,23 @@
   --spk: 52px;      /* round speaker diameter */
   --tray-h: 48px;   /* CD bay height */
   --disc: 40px;     /* disc diameter */
+  /* Block 3 — matte key / panel palette (device layers only; the booklet
+     keeps its cream + brass). Pills are matte charcoal with a fine top
+     bevel and near-zero sheen; glyphs are solid printed white/light-grey. */
+  --key-1: #3b3e44;
+  --key-2: #26282d;
+  --key-3: #1a1c20;
+  --key-bevel: rgba(255,255,255,0.10);
+  --key-core: rgba(0,0,0,0.45);
+  --glyph: rgba(236,240,245,0.82);
+  --glyph-solid: #f2f5f9;
+  --track-on: #cdd2d8;
+  --track-off: rgba(0,0,0,0.55);
+  --well: #14161a;
+  --key-w: 40px;
+  --key-h: 32px;
+  --play-w: 48px;
+  --play-h: 40px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -204,7 +221,7 @@ body {
   box-shadow:
     inset 0 3px 8px rgba(0,0,0,0.75),
     inset 0 -1px 0 rgba(255,255,255,0.08),
-    inset 0 0 40px rgba(255,160,60,0.05),
+    inset 0 0 40px rgba(190,205,220,0.04),
     0 1px 0 rgba(255,255,255,0.55);
   overflow: hidden;
 }
@@ -317,7 +334,7 @@ body {
 .device[data-state="open"] .disc { opacity: 0.96; }
 .device[data-state="open"] .tray-recess {
   background:
-    radial-gradient(circle at 50% 45%, #3a3227 0%, #241f18 70%, #15110c 100%);
+    radial-gradient(circle at 50% 45%, #33363c 0%, #23262b 70%, #14161a 100%);
 }
 
 /* the lid — smoked translucent window, hinged at the back */
@@ -481,35 +498,70 @@ body {
   align-items: center;
   justify-content: center;
   gap: 2px;
-  background: linear-gradient(180deg, #14151a 0%, #212329 100%);
+  background: linear-gradient(180deg, var(--well) 0%, #1a1c20 100%);
   border-radius: 10px;
   padding: 4px 0;
   box-shadow:
     inset 0 2px 5px rgba(0,0,0,0.7),
     inset 0 -1px 0 rgba(255,255,255,0.06),
-    0 1px 0 rgba(255,255,255,0.08);
+    0 1px 0 rgba(255,255,255,0.06);
 }
 
 .ctrl-btn {
-  background: linear-gradient(180deg, #ece4d0 0%, #cfc3a4 100%);
-  border: 1px solid rgba(0,0,0,0.35);
+  position: relative;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  padding: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  color: var(--ink);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.85),
-    inset 0 -2px 4px rgba(0,0,0,0.18),
-    0 3px 6px rgba(0,0,0,0.5);
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  color: var(--glyph);
+  transition: transform 0.08s ease, color 0.15s ease;
 }
-.ctrl-btn svg { display: block; width: 100%; height: 100%; fill: currentColor; }
-.ctrl-btn:active { transform: translateY(3px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.4); }
+/* matte charcoal pill key — recessed in the keypad well, fine top bevel,
+   near-zero sheen. The 44px box stays the tap target; the visible pill is
+   ~30–34px tall inside it. */
+.ctrl-btn::before {
+  content: "";
+  position: absolute;
+  inset: 5px 2px;
+  border-radius: 14px;
+  background:
+    repeating-linear-gradient(180deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, var(--key-1) 0%, var(--key-2) 55%, var(--key-3) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--key-bevel),
+    inset 0 -2px 4px rgba(0,0,0,0.6),
+    inset 0 0 0 1px var(--key-core),
+    0 1px 2px rgba(0,0,0,0.5);
+}
+.ctrl-btn svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  opacity: 0.88;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.55));
+}
+.ctrl-btn:active { transform: translateY(2px); }
+.ctrl-btn:active::before {
+  background: linear-gradient(180deg, var(--key-3) 0%, var(--key-1) 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,0.6),
+    inset 0 0 0 1px var(--key-core);
+}
 .ctrl-btn:disabled { opacity: 0.4; cursor: default; }
+.ctrl-btn:disabled::before { box-shadow: inset 0 0 0 1px rgba(0,0,0,0.45); }
 
-.ctrl-play { width: 48px; height: 48px; background: linear-gradient(180deg, #b08c55 0%, #8a6b3e 100%); color: #fff; }
+/* PLAY — same matte charcoal as siblings, only slightly larger + white glyph */
+.ctrl-play { width: 48px; height: 46px; color: var(--glyph-solid); }
+.ctrl-play::before { inset: 4px 1px; border-radius: 15px; }
+.ctrl-play svg { width: 24px; height: 24px; opacity: 1; }
 .ico-pause { display: none; }
 .device[data-playing="true"] .ico-play { display: none; }
 .device[data-playing="true"] .ico-pause { display: block; }
@@ -558,16 +610,33 @@ body {
 }
 .vol-row { display: flex; align-items: center; gap: 6px; }
 .vol-btn {
+  position: relative;
   border: none;
   background: transparent;
-  width: 22px;
-  height: 22px;
-  padding: 2px;
-  color: var(--bone);
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--glyph);
   cursor: pointer;
   flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.vol-btn svg { width: 100%; height: 100%; fill: currentColor; }
+.vol-btn::before {
+  content: "";
+  position: absolute;
+  inset: 6px 4px;
+  border-radius: 9px;
+  background:
+    linear-gradient(180deg, var(--key-1) 0%, var(--key-2) 55%, var(--key-3) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--key-bevel),
+    inset 0 -2px 4px rgba(0,0,0,0.6),
+    inset 0 0 0 1px var(--key-core),
+    0 1px 2px rgba(0,0,0,0.5);
+}
+.vol-btn svg { position: relative; z-index: 1; width: 22px; height: 22px; fill: currentColor; opacity: 0.88; }
 .ico-muted { display: none; }
 .vol-btn[data-muted="true"] .ico-sound { display: none; }
 .vol-btn[data-muted="true"] .ico-muted { display: block; }
@@ -577,8 +646,8 @@ body {
   -webkit-appearance: none;
   height: 5px;
   border-radius: 4px;
-  background: linear-gradient(90deg, var(--brass) 0%, var(--brass) var(--vol, 70%), rgba(0,0,0,0.4) var(--vol, 70%));
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,255,255,0.08);
+  background: linear-gradient(90deg, var(--track-on) 0%, var(--track-on) var(--vol, 70%), var(--track-off) var(--vol, 70%));
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(0,0,0,0.5);
   outline: none;
   cursor: pointer;
 }
@@ -588,19 +657,26 @@ body {
   height: 16px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7), transparent 60%),
-    repeating-conic-gradient(#d3c9b2 0deg 12deg, #968a73 12deg 24deg);
-  border: 1px solid rgba(0,0,0,0.5);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.3);
+    linear-gradient(90deg, rgba(0,0,0,0.5) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #35383d 0%, #232529 55%, #191b1e 100%);
+  border: 1px solid rgba(0,0,0,0.65);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    inset 0 -2px 3px rgba(0,0,0,0.5),
+    0 1px 3px rgba(0,0,0,0.5);
 }
 .vol-range::-moz-range-thumb {
-  width: 16px; height: 16px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7), transparent 60%),
-    repeating-conic-gradient(#d3c9b2 0deg 12deg, #968a73 12deg 24deg);
-  border: 1px solid rgba(0,0,0,0.5);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.3);
+    linear-gradient(90deg, rgba(0,0,0,0.5) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #35383d 0%, #232529 55%, #191b1e 100%);
+  border: 1px solid rgba(0,0,0,0.65);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    inset 0 -2px 3px rgba(0,0,0,0.5),
+    0 1px 3px rgba(0,0,0,0.5);
 }
 .vol-range:disabled { opacity: 0.4; }
 
@@ -777,8 +853,8 @@ body {
   .lcd-time { min-width: 21px; }
   .controls { gap: 4px; margin-top: 4px; }
   .ctrl { padding: 3px 0; gap: 1px; border-radius: 10px; }
-  .ctrl-btn { width: 44px; height: 44px; padding: 11px; }
-  .ctrl-play { width: 44px; height: 44px; }
+  .ctrl-btn { width: 44px; height: 44px; }
+  .ctrl-play { width: 46px; height: 44px; }
   .vol { gap: 6px; margin-top: 4px; padding: 4px 7px; }
   .vol-ticks { height: 4px; margin-bottom: 2px; }
   .hint { margin-top: 7px; font-size: 10px; min-height: 13px; }
@@ -822,13 +898,15 @@ body {
   .lcd-bottom { gap: 5px; margin-top: 5px; font-size: 9px; }
   .lcd-time { min-width: 25px; }
   .controls { grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 8px; }
-  .ctrl { border-radius: 13px; padding: 8px 0 6px; gap: 4px; }
-  .ctrl-btn { width: 48px; height: 48px; padding: 12px; }
-  .ctrl-play { width: 52px; height: 52px; }
+  .ctrl { border-radius: 13px; padding: 6px 0 4px; gap: 4px; }
+  .ctrl-btn { width: 48px; height: 48px; }
+  .ctrl-btn::before { inset: 7px 2px; border-radius: 15px; }
+  .ctrl-play { width: 52px; height: 50px; }
+  .ctrl-play::before { inset: 5px 1px; border-radius: 16px; }
   .ctrl-engrave { font-size: 8px; line-height: 10px; min-height: 10px; }
-  .vol { gap: 10px; margin-top: 8px; padding: 8px 12px; border-radius: 12px; }
+  .vol { gap: 10px; margin-top: 8px; padding: 6px 12px; border-radius: 12px; }
   .vol-label { font-size: 8px; letter-spacing: 0.24em; }
-  .vol-btn { width: 24px; height: 24px; }
+  .vol-btn { width: 48px; height: 48px; }
   .vol-range::-webkit-slider-thumb { width: 18px; height: 18px; }
   .vol-range::-moz-range-thumb { width: 18px; height: 18px; }
   .hint { margin-top: 12px; font-size: 12px; }
