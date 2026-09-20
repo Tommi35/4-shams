@@ -168,15 +168,18 @@ Goal: fewer (3–4 max), stuck to **real flat surfaces**, still simple and cute.
 
 ---
 
-## BLOCK 7 — Wrap-up: full regression + redeploy (after all chosen blocks)
+## BLOCK 7 — Wrap-up: full regression + redeploy (after all chosen blocks) ✅ BLOCK 7 DONE + verified headlessly + deployed (171-check combined regression re-run on the post-Block-6 geometry — catalog/direct-select/state-machine incl. the full off→open→closing→reading→ready→playing→paused chain with >3s-prev-restart, spin + reverse-spin freeze, marquee + progress; 5-viewport layout audit; file:// check; zero console errors; live re-verified).
 
-- [ ] Combined verification pass (mirroring the earlier 62-check suite): state machine
-       off→open→closing→reading→ready→playing→paused, next/prev/direct-select/vol/mute/eject,
-       disc spin/freeze, marquee, lid flip, booklet links unchanged.
-- [ ] Layout audit at 320/375/390/768/1280 (no h-scroll, no overlaps, controls ≥44px) + screenshots
-       `shot-4-*` in the temp screenshot dir.
-- [ ] `file://` double-click check + update `TODO.md` / `PROJECT_STATE.md`.
-- [ ] Redeploy to GitHub Pages via the existing temp clone
+- [x] Combined verification pass (mirroring the earlier 62-check suite): state machine
+       off→open→closing→reading→ready→playing→paused, next/prev (incl. >3s → restart track)/
+       scrub (vol 84%)/mute/eject/reload/direct-select, disc spin + label reverse spin running on
+       play + freeze on pause, marquee running + progress updating, lid flip timing, booklet links
+       unchanged.
+- [x] Layout audit at 320/375/390/768/1280 (no h-scroll, no overlaps, controls ≥44px, pills
+       30–40px tall, cassette below LCD + clear of controls, stickers/speakers/antenna intact) +
+       screenshots `shot-3-b7-{off,open,ready,playing,desktop}.png` saved.
+- [x] `file://` double-click check + update `TODO.md` / `PROJECT_STATE.md`.
+- [x] Redeploy to GitHub Pages via the existing temp clone
        (`C:\Users\xale\AppData\Local\Temp\opencode\deploy-4shams`): copy changed files → commit →
        push → live URL verify (HTTP 200, CSS/JS fetched, no console errors).
 
