@@ -796,6 +796,71 @@ body {
 .vol-range:disabled { opacity: 0.4; }
 
 /* =================================================================
+   DECORATIVE DOUBLE CASSETTE DECK (BLOCK 6) — two smoked cassette
+   windows below the LCD inside the command stack, mirroring the real
+   CFD-330's cassette doors. Each window: dark smoked glass, rounded
+   door outline, a tape-hub reel + tiny pinch-roller dot, thin bezel.
+   Purely decorative: aria-hidden + pointer-events:none, zero JS —
+   never intercepts the real controls below it.
+   ================================================================= */
+.cassette {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+  padding: 3px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #202329 0%, #14161a 100%);
+  box-shadow:
+    inset 0 2px 5px rgba(0,0,0,0.7),
+    inset 0 -1px 0 rgba(255,255,255,0.05),
+    0 1px 0 rgba(255,255,255,0.05);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.cass-door {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 26px;
+  border-radius: 7px;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 4px),
+    linear-gradient(160deg, rgba(28,32,38,0.92) 0%, rgba(9,11,15,0.97) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,0.9),
+    inset 0 0 0 3px rgba(255,255,255,0.045),
+    inset 0 2px 6px rgba(0,0,0,0.65);
+}
+/* tape-hub reel glimpsed through the smoked glass */
+.cass-hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(4,5,7,0.8) 0 2.5px,
+      rgba(205,212,220,0.22) 2.5px 3.5px,
+      rgba(0,0,0,0.42) 3.5px 5px);
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+/* tiny pinch-roller dot near the door's lower corner */
+.cass-pinch {
+  position: absolute;
+  left: 15%;
+  bottom: 4px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(150,158,168,0.42);
+  box-shadow: 0 0 2px rgba(0,0,0,0.6);
+}
+
+/* =================================================================
    HINT
    ================================================================= */
 .hint {
@@ -967,6 +1032,10 @@ body {
   .ctrl-play { width: 46px; height: 44px; }
   .vol { gap: 6px; margin-top: 4px; padding: 4px 7px; }
   .vol-ticks { height: 4px; margin-bottom: 2px; }
+  .cassette { gap: 4px; margin-top: 4px; padding: 2px; border-radius: 9px; }
+  .cass-door { height: 20px; border-radius: 6px; }
+  .cass-hub { width: 9px; height: 9px; }
+  .cass-pinch { left: 16%; bottom: 3px; width: 2.5px; height: 2.5px; }
   .hint { margin-top: 7px; font-size: 10px; min-height: 13px; }
   .feet { height: 8px; margin: 8px 0 -3px; }
 }
@@ -1034,6 +1103,10 @@ body {
   .vol-range::-moz-range-thumb { width: 18px; height: 18px; }
   .hint { margin-top: 12px; font-size: 12px; }
   .feet { height: 10px; margin: 12px 0 -4px; }
+  .cassette { gap: 8px; margin-top: 8px; padding: 5px; border-radius: 13px; }
+  .cass-door { height: 42px; border-radius: 10px; }
+  .cass-hub { width: 17px; height: 17px; }
+  .cass-pinch { left: 16%; bottom: 7px; width: 4px; height: 4px; }
 }
 
 /* =================================================================

@@ -155,16 +155,16 @@ Goal: fewer (3–4 max), stuck to **real flat surfaces**, still simple and cute.
 
 ---
 
-## BLOCK 6 — OPTIONAL (flag: only if it stays low-risk) — decorative double cassette deck
+## BLOCK 6 — OPTIONAL (flag: only if it stays low-risk) — decorative double cassette deck ✅ BLOCK 6 DONE + verified headlessly + deployed (below the LCD, inside the command stack, two smoked side-by-side windows — dark smoked glass, rounded door outline, thin bezel, hub + pinch dots; all `aria-hidden` + `pointer-events:none`, zero JS, `js/app.js` untouched; proved low-risk: never intercepts play/prev/next/eject/volume, preserved the height budget [24–32px row, 20px doors at ≤359 / 42px at ≥640], all tap targets ≥44px; 15 material + 20-check smoke + 5-viewport layout + zero errors/assets-200 — ALL PASS).
 
-- [ ] Below the LCD (inside the command stack) add two small smoked windows side by side, mirroring
-       the real CFD-330's cassette doors.
-- [ ] Each window: dark smoked glass, rounded door outline, two small hub/pinch dots, thin bezel;
-       purely decorative — `aria-hidden`, `pointer-events: none`, no JS.
-- [ ] Must not intercept clicks on play/prev/next/eject/volume; must fit the Block 1 height budget
-       (shrink elsewhere if needed).
-- [ ] Decision gate: if this adds meaningful complexity/risk to the working audio flow, skip it —
-       it is decorative only and listed here as **optional**.
+- [x] Below the LCD (inside the command stack) add two small smoked windows side by side, mirroring
+-        the real CFD-330's cassette doors.
+- [x] Each window: dark smoked glass, rounded door outline, two small hub/pinch dots, thin bezel;
+-        purely decorative — `aria-hidden`, `pointer-events: none`, no JS.
+- [x] Must not intercept clicks on play/prev/next/eject/volume; must fit the Block 1 height budget
+-        (shrink elsewhere if needed) — kept it compact (20–42px doors), controls/vol verified clear.
+- [x] Decision gate: if this adds meaningful complexity/risk to the working audio flow, skip it —
+-        it is decorative only and listed here as **optional** (kept — proved low-risk, no regressions).
 
 ---
 
